@@ -1,0 +1,80 @@
+doctype html
+
+html
+    head
+        title= title
+
+        // Loading Bootstrap
+        link(href='flat/css/vendor/bootstrap.min.css', rel='stylesheet')
+         // Loading Flat UI
+        link(href='flat/css/flat-ui-pro.css', rel='stylesheet')
+        link(rel='stylesheet', href='/stylesheets/login.css')
+
+
+        script(src='flat/js/vendor/jquery.min.js')
+        script(src='flat/js/flat-ui-pro.js')
+        script(src='flat/js/application.js')
+        script(src="flat/js/application.js")
+
+        script(src='/javascripts/spin.js')
+        script(src='/javascripts/global.js')
+
+     script
+         $('input').prop('disabled', true);
+         $("document").ready(function() {
+
+              if($('#statusbar').attr('status') == 3)
+                {
+                  setTimeout(function () {
+                     location.href = '/'
+                     }, 1000);
+                }
+              $('input').prop('disabled', false);
+
+            });
+
+        body
+
+
+        .container
+            div(class=("#{status=='1'||status=='2'||status=='4'||status=='6'||status=='7'||status=='9'?'jumbotron jumbotron-danger':(status=='3'||status=='5'||status=='8'?'jumbotron jumbotron-success':'')}"), status=status, id="statusbar")
+                p(class="whiteColor")=message
+
+            div.jumbotron
+                div(class="social")
+                    div(class="loginHolder")
+                        p Mit Social Account Dich anmelden
+                    form(action="/auth/facebook",method="get")
+                      input(type="submit", id="facebook", class="btn btn-social-facebook", value="Facebook")
+                    form(action="/auth/twitter",method="get")
+                      input(type="submit", id="twitter", class="btn btn-social-twitter", value="Twitter")
+                    form(action="/auth/google",method="get")
+                      input(type="submit", id="google", class="btn btn-danger", value="Google+")
+
+            div.jumbotron
+                div(class="login")
+                    form(action="/signin",method="post")
+                        div(class="loginHolder")
+                            p Mit E-Mail Dich anmelden
+                        div(class=("#{status=='1'?'form-group has-error':'form-group'}"))
+                            input(type="text",id="email",name="email", class="form-control", placeholder="E-Mail Adresse", value=email )
+                        div(class=("#{status=='2'?'form-group has-error':'form-group'}"))
+                            input(type="password",id="password",name="password", class="form-control",placeholder="Passwort")
+                            input(type="submit",id="anmelden", class="btn btn-info", value="Anmelden")
+            div.jumbotron
+                div(class="account")
+                    form(action="/signup",method="post")
+                        div(class="loginHolder")
+                            p Bist Du neu beim Pencilbox?
+                        input(type="text",id="email",name="email",class="form-control",placeholder="E-Mail Adresse", value=email)
+                        input(type="text",id="username",name="username", class="form-control",placeholder="Benutzername", value=username)
+                        input(type="password",id="password",name="password", class="form-control",placeholder="Passwort")
+
+                        div(class="accountHolder")
+                            input(type="submit",id="anmelden", class="btn btn-info", value="Account erstellen")
+
+
+
+
+
+
