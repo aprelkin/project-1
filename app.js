@@ -7,7 +7,9 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var impressum = require('./routes/impressum')
+var impressum = require('./routes/impressum');
+var login = require('./routes/login');
+var flash = require('connect-flash');
 
 var app = express();
 
@@ -23,10 +25,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 app.use('/', routes);
 app.use('/users', users);
 app.use('/impressum', impressum.index);
+app.get('/login', login.index);
 
 
 // catch 404 and forward to error handler

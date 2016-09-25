@@ -1,6 +1,6 @@
 
 /*
- * GET Pinboard page.
+ * GET Pencilbox page.
  */
 
 exports.index = function(req, res){
