@@ -1,0 +1,73 @@
+!!! 5
+include mixins
+html
+    head
+        title= title
+        meta(name="viewport", content="initial-scale=1.0,user-scalable=no")
+
+        link(href='flat/css/vendor/bootstrap.min.css', rel='stylesheet')
+        // Loading Flat UI
+        link(href='flat/css/flat-ui-pro.css', rel='stylesheet')
+
+        link(rel='stylesheet', href='/stylesheets/style-input-page.css')
+
+        // cusomize main page
+
+    body
+        .container
+            a(href="/") zur Hauptseite
+            div.jumbotron
+                div.input-group
+                    input(id="target", class="form-control", type="text", aria-label="...", placeholder="gib eine Adresse ein")
+                    span.input-group-addon
+                        span.fui-location
+                div.tagsinput
+                    input.tagsinput.tagsinput-typeahead.input-lg(name="tagsinput-02",id="tagsinput",data-role="tagsinput",value="hier,kannst,du,die,stichwörter,schreiben")
+
+                div(id="map-canvas")
+                textarea.form-control.send-form(rows=10, placeholder='Hier kannst Du eine Nachricht schreiben', name='message', id='message')
+                div(class="savePlace")
+                    div(class="fileinput fileinput-new float-left margin-r-5px",data-provides="fileinput")
+                        span(class="btn btn-default btn-file fui-photo") Photo
+                            input(type="file",name="fileElem[]",id="fileElem",class="btn btn-info",multiple="true",accept="image/*",onchange="handleFiles(this.files)")
+
+                    span(class="btn btn-primary fui-upload", data-toggle="modal", data-target="#saveModal") Nachricht speichern
+
+                div(id="auswahl",class="auswahl")
+
+
+        +modal(1,"saveModal","Wills Du die Nachricht speichern?", "Nachricht Speichern","btnSave");
+
+    script(src='flat/js/vendor/jquery.min.js')
+    script(src='flat/js/flat-ui-pro.js')
+    script(src='flat/js/application.js')
+    script(type="text/javascript", src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrv4JzWzVEf9X2Qf5XbnFDqciFaWQ3QhM&sensor=true&libraries=places")
+    script(src='/javascripts/spin.js')
+    script(src='/javascripts/global.js')
+    script(src='/javascripts/imgUpload.js')
+    script
+
+        $('input.tagsinput').tagsinput({trimValue: true, confirmKeys: [13, 32], onBlur:true});
+
+        $('input.tagsinput-typeahead').tagsinput('input').typeahead(null, {
+
+            displayKey: 'word',
+
+            source: function (query, process) {
+            return $.get('typeahead', { query: query }, function (data) {
+            return process(data);
+                });
+            }
+        });
+
+        lct.lat = !{lat};
+        lct.lng = !{lng};
+
+    script(src='/javascripts/gmap.js')
+
+
+
+
+
+
+

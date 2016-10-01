@@ -1,0 +1,94 @@
+//Created by dmitry on 28.06.2015.
+
+
+// Footer mixins
+mixin footer(label)
+      footer.footer
+         .bottom-menu.bottom-menu-inverse
+            .container
+               .row
+                  .col-md-2.col-sm-2
+                     a.navbar-brand(href='/')=label
+                  .col-md-8.col-sm-8
+                     ul.bottom-menu-list
+                        li
+                           a(href='#fakelink') Über
+                        li.active
+                           a(href='#fakelink') Jobs
+                        li
+                           a(href='#fakelink') Hilfe
+                        li
+                           a(href='/impressum') Impressum
+                        li
+                           a(href='#fakelink') Datenschutz
+                  .col-md-2.col-sm-2
+                     ul.bottom-menu-iconic-list
+                        li
+                           a.fui-pinterest(href='#fakelink')
+                        li
+                           a.fui-facebook(href='https://www.facebook.com/Pencilbox-436117866588984/')
+                        li
+                           a.fui-twitter(href='https://twitter.com/pencilboxde')
+
+
+// Navigation mixins
+mixin nav(about,username)
+      meta(charset='UTF-8')
+      nav.navbar(role='navigation')
+         // Brand and toggle get grouped for better mobile display
+         .navbar-header
+            button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+               span.sr-only Toggle navigation
+            a.navbar-brand(href='/') Pencilbox
+
+         //Collect the nav links, forms, and other content for toggling
+         #bs-example-navbar-collapse-1.collapse.navbar-collapse
+            ul.nav.navbar-nav
+               li.navbar-active-link
+                  a(href='#', id='showNews', style=about>0?'':'text-decoration: underline') Lokale Nachrichten
+                     span.navbar-unread
+               li
+                  a(href=username.length>0?'#':"/login", id=username.length>0?'showFavorites':"") Favoriten
+                     span
+               li
+                  a(href='/news?id=56523064549998e00e75fb65&about=1', id='aboutProject',style=about>0?'text-decoration: underline':'') Über Uns
+                     span
+
+            ul.nav.navbar-nav.navbar-right
+               li
+                  a.btn.btn-info.pb-bradius-0px(href="/put?lat="+lat + "&lng="+lng)
+                     span.fui-new
+               if username.length > 0
+                  li.dropdown
+                     a.dropdown-toggle(href='#', data-toggle='dropdown') !{username}
+                        b.caret
+                     span.dropdown-arrow
+                     ul.dropdown-menu
+                        li
+                           a(href="/put?lat="+lat+"&lng="+lng) Nachricht schreiben
+                        li
+                           a(href='/logout') Abmelden
+               else
+                  li
+                     a(href='/login') Anmelden
+mixin modal(execute, modalName, text, actionBtnText, actionBtnId)
+   if(execute > 0)
+       div(class="modal fade", id=modalName)
+         div(class="modal-dialog")
+            div(class="modal-content")
+               div(class="modal-header")
+                  button(type="button",class="close",data-dismiss="modal", aria-label="Close")
+                     span(aria-hidden="true")
+
+                  h4(class="modal-title")=text
+                  h4(class="modal-progress-bar")
+
+               div(class="modal-footer")
+                  a(type="button", class="btn", data-dismiss="modal", id="btnSpin")
+                  button(type="button", class="btn btn-default", data-dismiss="modal", id="btnAbbrechen") Abbrechen
+                  button(type="button", class="btn btn-primary", id=actionBtnId)=actionBtnText
+
+
+
+
+

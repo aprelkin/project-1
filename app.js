@@ -1,68 +1,181 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var impressum = require('./routes/impressum');
-var login = require('./routes/login');
-var flash = require('connect-flash');
+/**
+ * Module dependencies.
+ */
 
-var app = express();
+var express = require('express')
+    , board = require('./routes/board')
+    , impressum = require('./routes/impressum')
+    , login = require('./routes/login')
+    , announce = require('./routes/announce')
+    , news = require('./routes/news')
+    , fav = require('./routes/fav')
+    , http = require('http')
+    , path = require('path')
+    , fs = require('fs')
+    , gm = require('gm')
+    , mongoose = require('mongoose')
+    , database = require('./config/database')
+    , passport = require('passport')
+    , flash = require('connect-flash')
+    , siteMap = require('./routes/siteMap')
+    , googleAccept = require('./routes/googleAccept')
+    , cookieParser = require('cookie-parser')
+    , bodyParser = require('body-parser')
+    , cookieSession = require('cookie-session')
+    , logger = require('morgan')
+    , methodOverride = require('method-override')
+    , favicon = require('serve-favicon')
+    , app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
+// all environments
+app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+//app.use(express.cookieParser('keyboard cat'));
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(cookieSession({ name: 'session',keys: ['key1', 'key2'] })); // session secret
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash()); // use connect-flash for flash messages stored in session
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(require('stylus').middleware(path.join(__dirname, 'public')));
+
+app.use(methodOverride());
+app.use(require('stylus').middleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(favicon(__dirname+'/public/stylesheets/favicon/favicon.ico'));
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/impressum', impressum.index);
-app.get('/login', login.index);
+app.enable('strict routing');
+require('./config/passport')(passport); // pass passport for configuration
 
+mongoose.connect(database.url); // connect to our database
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handlers
-
-// development error handler
-// will print stacktrace
+// development only
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
+    app.use(function (err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
     });
-  });
 }
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+    app.use(function(err, req, res, next) {
+          res.status(err.status || 500);
+          res.render('error', {
+                message: err.message,
+                error: {}
+          });
+    });
+
+
+
+// clear cache browser back solution
+app.get('/*',function(req,res,next){
+
+  res.header('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
+
+  if (req.headers.host.match(/^www\./)){
+    res.redirect(301, 'http://pencilbox.de');
+  }else{
+    return next();
+  }
 });
 
+app.post('/signin',
+    passport.authenticate('local-signin', { successRedirect: '/login',
+      failureRedirect: '/login',
+      failureFlash: true })
+);
+
+app.post('/signup',
+    passport.authenticate('local-signup', { successRedirect: '/login',
+      failureRedirect: '/login',
+      failureFlash: true })
+);
+
+// =====================================
+// TWITTER ROUTES ======================
+// =====================================
+// route for twitter authentication and login
+app.get('/auth/twitter', passport.authenticate('twitter'));
+
+// handle the callback after twitter has authenticated the user
+app.get('/auth/twitter/callback',
+    passport.authenticate('twitter', {
+      successRedirect : '/',
+      failureRedirect : '/login'
+    }));
+
+// =====================================
+// FACEBOOK ROUTES ======================
+// =====================================
+
+// send to facebook to do the authentication
+app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+
+// handle the callback after facebook has authenticated the user
+app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', {
+      successRedirect : '/',
+      failureRedirect : '/login'
+    }));
+
+// =====================================
+// GOOGLE ROUTES ======================
+// =====================================
+
+// send to google to do the authentication
+app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+
+// the callback after google has authenticated the user
+app.get('/auth/google/callback',
+    passport.authenticate('google', {
+      successRedirect : '/',
+      failureRedirect : '/login'
+    }));
+
+
+app.get('/', announce.init);
+
+app.post('/look',announce.find);
+
+app.post('/showMyFavarites', fav.showMyFavarites);
+
+app.post('/save', announce.save);
+
+app.get('/put', board.index);
+
+app.get('/impressum',impressum.index);
+
+app.get('/login', login.index);
+
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/login');
+});
+
+app.get('/typeahead', announce.typeahead);
+
+app.post('/delete', announce.delete);
+
+app.post('/update', announce.update);
+
+app.post('/fav', fav.update);
+
+app.get('/news', news.index);
+
+// siteMap
+app.get('/sitemap.xml', siteMap.index);
+
+//google verification for gmail service
+app.get('/googleb7cf716048a384e5.html', googleAccept.index);
 
 module.exports = app;
+
+
+
