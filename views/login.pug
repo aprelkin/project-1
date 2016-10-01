@@ -4,9 +4,7 @@ html
     head
         title= title
 
-        // Loading Bootstrap
         link(href='flat/css/vendor/bootstrap.min.css', rel='stylesheet')
-         // Loading Flat UI
         link(href='flat/css/flat-ui-pro.css', rel='stylesheet')
         link(rel='stylesheet', href='/stylesheets/login.css')
 
@@ -19,19 +17,8 @@ html
         script(src='/javascripts/spin.js')
         script(src='/javascripts/global.js')
 
-     script
-         $('input').prop('disabled', true);
-         $("document").ready(function() {
-
-              if($('#statusbar').attr('status') == 3)
-                {
-                  setTimeout(function () {
-                     location.href = '/'
-                     }, 1000);
-                }
-              $('input').prop('disabled', false);
-
-            });
+        script(src='javascripts/login.js')
+        
 
         body
 
