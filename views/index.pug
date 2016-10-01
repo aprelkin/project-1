@@ -1,0 +1,84 @@
+doctype html
+include mixins
+html(lang='de')
+head
+    if (username.length > 0)
+        title Pencilbox | !{username}
+    else
+        title Pencilbox | !{town}
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    // Loading Bootstrap
+    link(href='flat/css/vendor/bootstrap.min.css', rel='stylesheet')
+    // Loading Flat UI
+    link(href='flat/css/flat-ui-pro.css', rel='stylesheet')
+
+    // cusomize main page
+    link(href='stylesheets/style-main-page.css', rel='stylesheet')
+    link(href='http://fonts.googleapis.com/css?family=Lobster+Two', rel='stylesheet',type='text/css')
+
+    body
+        style
+            body
+                padding-top: 10px
+            .navbar
+                margin-bottom: 10px
+
+        .container
+            +nav(about, username)
+
+            div.jumbotron
+                .form-group
+                    .input-group
+                        input#search.form-control.main-page(type='search', placeholder='In meinem Ort suchen')
+                        span.input-group-btn
+                            button.btn(type='button')
+                                span.fui-location
+
+                div.tagsinput-default
+                    input.tagsinput.tagsinput-typeahead.input-lg(name="tagsinput-02",id="tagsinput",value="Stichwörter", placeholder='Tipp hier deine Stichwörter')
+                div#slider-range-min
+                input(type="text",id="amount", readonly, style="border:0; background-color: #eee; color:#3498DB;")
+                div.flat-right
+                    input(type="checkbox", checked, disabled="true", data-toggle="switch", data-on-color="info", data-off-color="primary", id="custom-switch-05")
+                    .flat-left Filter folgen
+
+            div(class="alert alert-success display-none", id="alert")
+                button(class="close fui-cross",data-dismiss="alert")
+                p Es wurde an deinem Ort keine Nachriche gefunden.
+                    a(href="/put?lat="+lat + "&lng="+lng,class="alert-link") Willst Du bei deinem Ort der Erste sein? Dann kannst Du eine neue Nachricht schreiben.
+            .grid
+                .row
+                    .item.display-none
+                        .well.well-top
+                            a.float-left.source
+                            a.float-left.a-top Varlamov Dmitry 01.02.2015
+                        div(style="position:relative")
+                            div(style="position: relative; left: 0; top: 0;", class="imageWrapper")
+                                img(src="", class="slideImg masterImg")
+                        .well.well-bottom
+                            a.fui-location.float-left
+                            a.float-left.address
+                            hr.margin-top-35px
+                            p
+                            hr
+                            div.btn-group.btn-group-justified
+                                a.btn.btn-default.fav(href="#")
+                                    span.fui-star-2 300
+
+            div(class="alert display-none")
+                a(href="#fakelink",class="btn btn-info btn-wide") Weitere Ergebnisse
+
+        +modal(1,"anmeldenModal","Du bist noch nicht angemeldet", "Anmelden","btnAnmelden")
+
+        +footer("Geoblogging")
+
+        script(src='flat/js/vendor/jquery.min.js')
+        script(src='flat/js/flat-ui-pro.js')
+        script(src='flat/js/application.js')
+        script(type='text/javascript', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCrv4JzWzVEf9X2Qf5XbnFDqciFaWQ3QhM&sensor=true&libraries=places')
+        script(src='/javascripts/global.js')
+        script(src='/javascripts/look.js')
+        script(src='/javascripts/createPinitems.js')
+        script(src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js')
+        script(src='/javascripts/index.js')

@@ -29,8 +29,8 @@ var express = require('express')
     , app = express();
 
 // all environments
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
+app.set('views',path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
 //app.use(express.cookieParser('keyboard cat'));
 app.use(cookieParser()); // read cookies (needed for auth)
