@@ -14,6 +14,9 @@ html
         // cusomize main page
 
     body
+        inpute(id="lat",type="hidden", value=lat)
+        inpute(id="lng",type="hiden", value=lng)
+
         .container
             a(href="/") zur Hauptseite
             div.jumbotron
@@ -36,7 +39,7 @@ html
                 div(id="auswahl",class="auswahl")
 
 
-        +modal(1,"saveModal","Wills Du die Nachricht speichern?", "Nachricht Speichern","btnSave");
+        +modal(1,"saveModal","Wills Du die Nachricht speichern?", "Nachricht Speichern","btnSave")
 
     script(src='flat/js/vendor/jquery.min.js')
     script(src='flat/js/flat-ui-pro.js')
@@ -45,24 +48,7 @@ html
     script(src='/javascripts/spin.js')
     script(src='/javascripts/global.js')
     script(src='/javascripts/imgUpload.js')
-    script
-
-        $('input.tagsinput').tagsinput({trimValue: true, confirmKeys: [13, 32], onBlur:true});
-
-        $('input.tagsinput-typeahead').tagsinput('input').typeahead(null, {
-
-            displayKey: 'word',
-
-            source: function (query, process) {
-            return $.get('typeahead', { query: query }, function (data) {
-            return process(data);
-                });
-            }
-        });
-
-        lct.lat = !{lat};
-        lct.lng = !{lng};
-
+    script(src='/javascripts/board.js')
     script(src='/javascripts/gmap.js')
 
 

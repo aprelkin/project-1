@@ -16,9 +16,9 @@ exports.index = function(req, res){
     console.dir(req.user);
 
 
-    if (typeof req.param('userid') !== "undefined") {
+    if (typeof req.params.userid !== "undefined") {
 
-        var userid = req.param('userid');
+        var userid = req.params.userid;
 
         UserModel.findById(userid, function(err, user) {
 
