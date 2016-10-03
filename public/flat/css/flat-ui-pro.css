@@ -353,6 +353,7 @@ body {
   line-height: 1.72222;
   color: #34495e;
   background-color: #ffffff;
+  padding-top: 10px;
 }
 a {
   color: #16a085;
@@ -5442,9 +5443,9 @@ a.list-group-item > .badge,
 .navbar {
   font-size: 16px;
   min-height: 53px;
-  margin-bottom: 30px;
   border: none;
   border-radius: 6px;
+  margin-bottom: 10px
 }
 @media (min-width: 768px) {
   .navbar-header {
