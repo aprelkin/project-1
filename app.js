@@ -26,6 +26,8 @@ var express = require('express')
     , logger = require('morgan')
     , methodOverride = require('method-override')
     , favicon = require('serve-favicon')
+    , multer  = require('multer')
+    , upload = multer({ dest: __dirname + '/public/images/tmp/' })
     , app = express();
 
 // all environments
@@ -41,7 +43,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(methodOverride());
 app.use(require('stylus').middleware(__dirname + '/public'));
@@ -146,7 +148,7 @@ app.post('/look',announce.find);
 
 app.post('/showMyFavarites', fav.showMyFavarites);
 
-app.post('/save', announce.save);
+app.post('/save',upload.array('img', 12), announce.save);
 
 app.get('/put', board.index);
 

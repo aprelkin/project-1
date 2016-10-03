@@ -9,10 +9,9 @@ var UserModel = require('../models/userModel');
 var InputTagModel = require('../models/inputTagModel');
 var FavModel = require('../models/favModel');
 var maxmind = require('maxmind'); // maxmind@1
-
-
 var path = require('path');
-var appDir = path.dirname(require.main.filename);
+
+var appDir = path.dirname("../");
 var cityLookup = maxmind.open('public/geoip/GeoLite2-City.mmdb');
 
 
@@ -106,12 +105,9 @@ exports.save = function(req, res){
     var position = req.body.position;
     var lat = req.body.lat;
     var lng = req.body.lng;
-    var imgLength = 0;
     var address = req.body.address;
 
     var action = JSON.parse(req.body.action);
-
-    var imgs = [];
 
     for (var i =0; i < action.length; i++)
     {
@@ -120,55 +116,29 @@ exports.save = function(req, res){
 
     action.splice(maxinputtaglength);
 
-    if(typeof req.files.img !== "undefined" )
+    console.dir(req.files);
+
+    var imgs = [];
+    var imgLength = 0;
+    if(typeof req.files !== "undefined" )
     {
-        if(typeof req.files.img.length === "undefined")
-        {
-            var split = req.files.img.name.split(".");
-            var ext = split[split.length-1];
-            var name = announcementID.toString()+'_'+ 'pic'+'_'+0+'.'+ext.toLowerCase();
-
-            imgs.push(name);
-
-            var oldPath = req.files.img.path;
-            var newPath = appDir+'/public/images/'+name;
-            var gmPath = appDir+ '/public/images/mini/'+name;
-
-            fs.renameSync(oldPath, newPath);
-
-            gm(newPath)
-                .resize(null, 431)
-                .noProfile()
-                .write(gmPath, function (err) {
-                    if (err){console.log(err)}
-                });
-
-            var newImgMapModel = new ImgMapModel({
-                name:name,
-                announcementID: announcementID.toString()
-               });
-
-            newImgMapModel.save(function(err, saved) {
-                if( err || !saved ) console.log("Image not saved"+ err);
-                else console.log("Image saved");
-            });
-
-            imgLength = 1;
-        }
-        else
-        {
-            imgLength = req.files.img.length;
-            for(var i= 0; i < req.files.img.length; i++ )
+            imgLength = req.files.length;
+            for(var i= 0; i < req.files.length; i++ )
             {
-                var split = req.files.img[i].name.split(".");
+                var split = req.files[i].originalname.split(".");
                 var ext = split[split.length-1];
                 var name = announcementID.toString()+'_'+ 'pic'+'_'+i+'.'+ext.toLowerCase();
 
                 imgs.push(name);
 
-                var oldPath = req.files.img[i].path;
+                console.log("req.files[i].path: "+req.files[i].path);
+
+                var oldPath = req.files[i].path;
                 var newPath = appDir + '/public/images/'+name;
                 var gmPath = appDir + '/public/images/mini/'+name;
+
+                console.log("new path: "+newPath);
+
                 fs.renameSync(oldPath, newPath);
 
                 gm(newPath)
@@ -196,7 +166,6 @@ exports.save = function(req, res){
                 });
 
             }
-        }
     }
 
     var newAnnouncement = new AnnounceModel({
@@ -216,7 +185,7 @@ exports.save = function(req, res){
     newAnnouncement.save(function(err, saved) {
         if( err || !saved ) console.log("Annoucement not saved"+ err);
         else console.log("Announcement saved");
-        res.send(200);
+        res.sendStatus(200);
     });
 
 
@@ -266,7 +235,7 @@ exports.delete = function(req,res)
 
                 console.log("announcement removed");
 
-                res.send(200);
+                res.sendStatus(200);
             });
         }
         else
