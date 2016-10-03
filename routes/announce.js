@@ -47,17 +47,14 @@ exports.init = function(req, res){
     // https://github.com/runk/node-maxmind  (curent 1.2.25)
     //console.log(location); test
 
-    var location = cityLookup.get(req.connection.remoteAddress);
+    var cityObject = cityLookup.get(req.connection.remoteAddress);
 
-    if(location == null || location.city == null)
-    {
-        location = cityLookup.get("84.57.40.80"); // Munich
+    if(cityObject == null) {
 
-        //location = maxmind.getLocation("81.22.197.201"); // location.city == null
-        //console.log("city from "+location.city+" location: "+location.lng);
+        cityObject = cityLookup.get("66.6.44.4"); // NY
     }
 
-    res.render('index', { title: 'Pencilbox', town: location.city,  lat: location.latitude, lng: location.longitude, username:username });
+    res.render('index', { title: 'Pencilbox', town: cityObject['city'].names['en'],  lat: cityObject['location'].latitude, lng: cityObject['location'].longitude, username:username });
 };
 
 

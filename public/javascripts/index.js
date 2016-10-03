@@ -63,11 +63,13 @@ $("#aboutProject").click(function(event){
     $("#aboutProject").css("text-decoration","underline");
 });
 
-lct.lat = !{lat};
-lct.lng = !{lng};
-
 // Start point
 $(document).ready(function() {
+    
+    // get initial location from IP maxmind database
+    lct.lat = $("#lat").attr("value");
+    lct.lng = $("#lng").attr("value");
+    
     var radius = 10;
     var action = JSON.stringify($("#tagsinput").tagsinput('items'));
     look(lct,radius,action);

@@ -17,12 +17,16 @@ head
     link(href='stylesheets/style-main-page.css', rel='stylesheet')
     link(href='http://fonts.googleapis.com/css?family=Lobster+Two', rel='stylesheet',type='text/css')
 
+
     body
         style
             body
                 padding-top: 10px
             .navbar
                 margin-bottom: 10px
+
+        inpute(id="lat",type="hidden", value=lat)
+        inpute(id="lng",type="hiden", value=lng)
 
         .container
             +nav(about, username)
