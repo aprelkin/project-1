@@ -6,12 +6,12 @@ var UserModel = require('../models/userModel');
 
 exports.index = function(req, res){
 
-   var announceID = req.param('id');
-   var about = req.param('about');
+   var announceID = req.query.id;
+   var about = req.query.about;
 
     if(!mongoose.Types.ObjectId.isValid(announceID))
     {
-        res.send('404: Page not Found', 404);
+        res.status(404).send('404: Page not Found');
         return;
     }
 
