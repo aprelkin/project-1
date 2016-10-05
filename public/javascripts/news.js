@@ -90,14 +90,14 @@ $(".imageWrapper").find(".slideImg").click(function () {
     });
 });
 
-$(".fav").click({announceID: "!{announceID}"},function(event) {
+$(".fav").click(function(event) {
 
     event.preventDefault();
 
     $.ajax({
         type: "POST",
         url: "/fav",
-        data: { announceid: event.data.announceID}
+        data: { announceid: announceID}
     }).done(function( msg ) {
 
         if(typeof msg[2] !== "undefined")
@@ -122,12 +122,12 @@ $(".fav").click({announceID: "!{announceID}"},function(event) {
 } )
 
 
-$("#btnDelete").click({announceID: "!{announceID}"}, function(event){
+$("#btnDelete").click(function(event){
 
     $.ajax({
         type: "POST",
         url: "/delete",
-        data: { announceid: event.data.announceID}
+        data: { announceid: announceID}
     }).done(function( msg ) {
 
         $(".modal-title").empty().text("Die Nachricht wurde gelöscht");
@@ -138,7 +138,7 @@ $("#btnDelete").click({announceID: "!{announceID}"}, function(event){
         }, 1000);
     });
 })
-$("#btnAnmelden").click({announceID: "!{announceID}"}, function(event){
+$("#btnAnmelden").click(function(event){
     location.href = '/login'
 })
 
@@ -158,11 +158,9 @@ $("#edit").click(function(){
     editTextArea();
 })
 
-$("#message").blur({announceID: "!{announceID}"}, function(event){
+$("#message").blur(function(event){
 
-    alert("dsds: "+event.data.announceID);
-
-    hideTextArea(event.data.announceID);
+    hideTextArea(announceID);
 })
 
 function editTextArea()
@@ -196,4 +194,5 @@ $(document).ready(function() {
     // get initial location from IP maxmind database
     lct.lat = $("#lat").attr("value");
     lct.lng = $("#lng").attr("value");
+    announceID = $("#announceID").attr("value");
 });

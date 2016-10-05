@@ -18,6 +18,7 @@ head
 
         inpute(id="lat",type="hidden", value=lat)
         inpute(id="lng",type="hiden", value=lng)
+        inpute(id="announceID",type="hiden", value=announceID)
 
         .container
 
@@ -61,7 +62,6 @@ head
                                     span.fui-star-2 300
 
             each announce in ancmts
-                 text_announce = announce.rest.announcement
                     .item
                         .well.well-top
                             a.float-left.source
@@ -89,14 +89,14 @@ head
                             if(announce.userID == userID)
                                 div(id="editOver", style="width: 100%;")
                                     div(style="float: left; width: 95%")
-                                        p=announce.rest.announcement
+                                        p #{announce.rest.announcement}
                                     div(id="edit",style="float: left; width: 5%; display:none")
                                         a.fui-new
                                 div(id="message-holder").display-none
                                      textarea.form-control.send-form(rows=5, name='message', id='message')
 
                             else
-                                p=announce.rest.announcement
+                                p #{announce.rest.announcement}
                             hr
                             div.btn-group.btn-group-justified
                                 a.btn.btn-default.fav(href="#",data-toggle="modal",data-target="#anmeldenModal")

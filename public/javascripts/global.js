@@ -2,6 +2,8 @@ var lct = new Object;
     lct.lat = 0;
     lct.lng = 0;
 
+var announceID = 0;
+
 var skip = 10;
 
 var scrollON = true;
