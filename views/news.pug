@@ -34,7 +34,10 @@ head
                                     span.fui-location
 
                     div.tagsinput-default
-                        input.tagsinput.tagsinput-typeahead.input-lg(name="tagsinput-02",id="tagsinput",value=announce.rest.action)
+                        - var value;
+                          each item, index in announce.rest.action
+                           - value +=item+((index+1)==announce.rest.action.length?"":",")
+                        input.tagsinput.tagsinput-typeahead.input-lg(name="tagsinput-02",id="tagsinput", value=value)
                     div#slider-range-min
                     input(type="text",id="amount", readonly, style="border:0; background-color: #eee; color:#3498DB;")
                     div.flat-right

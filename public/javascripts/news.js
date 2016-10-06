@@ -20,6 +20,7 @@ $('input.tagsinput-typeahead').tagsinput('input').typeahead(null, {
 
     source: function (query, process) {
         return $.get('typeahead', { query: query }, function (data) {
+
             return process(data);
         });
     }
