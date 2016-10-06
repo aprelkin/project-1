@@ -34,7 +34,7 @@ head
                                     span.fui-location
 
                     div.tagsinput-default
-                        - var value;
+                        - var value="";
                           each item, index in announce.rest.action
                            - value +=item+((index+1)==announce.rest.action.length?"":",")
                         input.tagsinput.tagsinput-typeahead.input-lg(name="tagsinput-02",id="tagsinput", value=value)
