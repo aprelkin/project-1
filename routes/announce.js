@@ -12,7 +12,7 @@ var maxmind = require('maxmind'); // maxmind@1
 var path = require('path');
 
 var appDir = path.dirname("../");
-var cityLookup = maxmind.open('public/geoip/GeoLite2-City.mmdb');
+var cityLookup = maxmind.openSync('public/geoip/GeoLite2-City.mmdb');
 
 
 exports.init = function(req, res){
