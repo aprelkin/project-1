@@ -12,24 +12,10 @@ mixin footer(label)
                   .col-md-8.col-sm-8
                      ul.bottom-menu-list
                         li
-                           a(href='#fakelink') Über
-                        li.active
-                           a(href='#fakelink') Jobs
-                        li
-                           a(href='#fakelink') Hilfe
-                        li
                            a(href='/impressum') Impressum
                         li
                            a(href='#fakelink') Datenschutz
                   .col-md-2.col-sm-2
-                     ul.bottom-menu-iconic-list
-                        li
-                           a.fui-pinterest(href='#fakelink')
-                        li
-                           a.fui-facebook(href='https://www.facebook.com/Pencilbox-436117866588984/')
-                        li
-                           a.fui-twitter(href='https://twitter.com/pencilboxde')
-
 
 // Navigation mixins
 mixin nav(about,username)
@@ -39,20 +25,11 @@ mixin nav(about,username)
          .navbar-header
             button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
                span.sr-only Toggle navigation
-            a.navbar-brand(href='/') Pencilbox.io
+            a.navbar-brand(href='/') Pencilbox
 
          //Collect the nav links, forms, and other content for toggling
          #bs-example-navbar-collapse-1.collapse.navbar-collapse
             ul.nav.navbar-nav
-               li.navbar-active-link
-                  a(href='#', id='showNews', style=about>0?'':'text-decoration: underline') Lokale Nachrichten
-                     span.navbar-unread
-               li
-                  a(href=username.length>0?'#':"/login", id=username.length>0?'showFavorites':"") Favoriten
-                     span
-               li
-                  a(href='/news?id=56523064549998e00e75fb65&about=1', id='aboutProject',style=about>0?'text-decoration: underline':'') Über Uns
-                     span
 
             ul.nav.navbar-nav.navbar-right
                li
