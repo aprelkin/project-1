@@ -142,7 +142,7 @@ exports.save = function(req, res){
                 fs.renameSync(oldPath, newPath);
 
                 gm(newPath)
-                    .resize(null, 431)
+                    .resize(null, 431).autoOrient()
                     .noProfile()
                     .write(gmPath, function (err) {
                         if (!err)
