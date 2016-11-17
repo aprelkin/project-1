@@ -48,13 +48,10 @@ exports.init = function(req, res){
 
     var cityObject = cityLookup.get(req.connection.remoteAddress);
 
-    if(cityObject == null) {
+    if(cityObject == null || typeof cityObject['city'] == "undefined") {
 
         cityObject = cityLookup.get("66.6.44.4"); // NY
     }
-
-    console.dir(cityObject);
-    
 
     res.render('index', { title: 'Pencilbox', town: cityObject['city'].names['en'],  lat: cityObject['location'].latitude, lng: cityObject['location'].longitude, username:username });
 };
