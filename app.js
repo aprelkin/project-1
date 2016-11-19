@@ -82,7 +82,7 @@ app.get('/*',function(req,res,next){
   res.header('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
 
   if (req.headers.host.match(/^www\./)){
-    res.redirect(301, 'http://pencilbox.de');
+    res.redirect(301, 'http://pencilbox.io');
   }else{
     return next();
   }
