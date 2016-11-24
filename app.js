@@ -5,6 +5,7 @@
 
 var express = require('express')
     , board = require('./routes/board')
+    , table = require('./routes/table')
     , impressum = require('./routes/impressum')
     , login = require('./routes/login')
     , announce = require('./routes/announce')
@@ -151,6 +152,8 @@ app.post('/showMyFavarites', fav.showMyFavarites);
 app.post('/save',upload.array('img', 12), announce.save);
 
 app.get('/put', board.index);
+
+app.get('/places', table.index);
 
 app.get('/impressum',impressum.index);
 

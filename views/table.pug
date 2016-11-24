@@ -1,0 +1,58 @@
+doctype html
+include mixins.pug
+html
+    head
+        title
+        meta(name="viewport", content="initial-scale=1.0,user-scalable=no")
+
+        link(href='flat/css/vendor/bootstrap.min.css', rel='stylesheet')
+        // Loading Flat UI
+        link(href='flat/css/flat-ui-pro.css', rel='stylesheet')
+
+        link(rel='stylesheet', href='/stylesheets/style-input-page.css')
+
+        // cusomize main page
+
+    body
+        .container
+            a(href="/") zur Hauptseite
+            div.jumbotron
+                div.table-responsive
+                    table.table
+                        thead
+                            tr
+                                th Place name
+                                th Adresse
+                                th Tags
+                                th folovers
+                        tbody
+                            tr
+                                td Munich
+                                td Drygalski Allee 118 923
+                                td hi how the going
+                                td 165
+                            tr
+                                td Munich
+                                td Drygalski Allee 118 923
+                                td hi how the going
+                                td 165
+
+
+
+
+    script(src='flat/js/vendor/jquery.min.js')
+    script(src='flat/js/flat-ui-pro.js')
+    script(src='flat/js/application.js')
+    script(type="text/javascript", src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrv4JzWzVEf9X2Qf5XbnFDqciFaWQ3QhM&sensor=true&libraries=places")
+    script(src='/javascripts/spin.js')
+    script(src='/javascripts/global.js')
+    script(src='/javascripts/imgUpload.js')
+    script(src='/javascripts/board.js')
+    script(src='/javascripts/gmap.js')
+
+
+
+
+
+
+
