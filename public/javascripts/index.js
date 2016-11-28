@@ -63,16 +63,40 @@ $("#aboutProject").click(function(event){
     $("#aboutProject").css("text-decoration","underline");
 });
 
+$("#custom-switch-05").on('switchChange.bootstrapSwitch',function(event, state){
+
+    var radius = $("#slider-range-min").slider("value");
+    var action = JSON.stringify($("#tagsinput").tagsinput('items'));
+
+    $.ajax({
+            type: "POST",
+            url: "/savePlace",
+            data: { state:state,lat: lct.lat, lng: lct.lng, radius : radius, action: action}
+        }).done(function( msg ) {
+            console.log("saved")
+        });
+});
+
 // Start point
 $(document).ready(function() {
     
     // get initial location from IP maxmind database
     lct.lat = $("#lat").attr("value");
     lct.lng = $("#lng").attr("value");
-    
-    var radius = 10;
+
+    var radius = $("#slider-range-min").slider("value");
     var action = JSON.stringify($("#tagsinput").tagsinput('items'));
     look(lct,radius,action);
+    
+    $.ajax({
+        type: "POST",
+        url: "/findPlace",
+        data: { lat: lct.lat, lng: lct.lng, radius : radius, action: action}
+    }).done(function( msg ) {
+
+        $("#custom-switch-05").prop('checked', true);
+    });
+
 });
 $("#btnAnmelden").click({announceID: "!{announceID}"}, function(event){
     location.href = '/login'

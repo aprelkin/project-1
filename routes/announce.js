@@ -271,8 +271,6 @@ exports.update = function(req,res)
     });
 }
 
-
-
 exports.typeahead = function(req, res){
 
     var tags = [];
