@@ -70,6 +70,8 @@ $("#aboutProject").click(function(event){
 
 $("#custom-switch-05").on('switchChange.bootstrapSwitch',function(event, state){
 
+    console.log("changed");
+
     var radius = $("#slider-range-min").slider("value");
     var action = JSON.stringify($("#tagsinput").tagsinput('items'));
 

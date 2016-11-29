@@ -50,8 +50,8 @@ exports.save = function(req, res){
             if(doc != null)
             {
                 var index = doc.userIds.indexOf(userid);
-
-                if(index < 0)
+                
+                if(index < 0 && state)
                 {
                     doc.userIds.push(userid);
                     doc.save(function(err) {
@@ -74,7 +74,7 @@ exports.save = function(req, res){
                     });
                 }
             }
-            else
+            else if(state)
             {
                 var userIds = [];
                 userIds.push(userid);
