@@ -43,6 +43,7 @@ function initialize() {
 
         // look for saved news
         look(lct,radius,action);
+        isIamfollow(lct,radius,action);
     });
 }
 
@@ -55,6 +56,22 @@ function look(lct,radius,action)
     }).done(function( msg ) {
         $(".item").not(".display-none").remove();
         createPinitems(msg);
+    });
+}
+
+function isIamfollow(lct,radius,action)
+{
+    $.ajax({
+        type: "POST",
+        url: "/findPlace",
+        data: { lat: lct.lat, lng: lct.lng, radius : radius, action: action}
+    }).done(function( msg ) {
+
+            $("#custom-switch-05").bootstrapSwitch('state', true, true);
+
+    }).fail(function (jqXHR, textStatus) {
+
+        $("#custom-switch-05").bootstrapSwitch('state', false, false);
     });
 }
 

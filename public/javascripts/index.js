@@ -7,6 +7,8 @@ $("#slider-range-min").slider({
         $( "#amount" ).val("Umkreis "+ ui.value +" Kilometer");
         var action = JSON.stringify($("#tagsinput").tagsinput('items'));
         look(lct,ui.value,action);
+        isIamfollow(lct,ui.value,action);
+
     }}).addSliderSegments();
 
 $( "#amount" ).val("Umkreis "+ $( "#slider-range-min" ).slider( "value" ) +" Kilometer");
@@ -28,12 +30,14 @@ $('input.tagsinput').on('itemAdded', function(event) {
     var radius = $("#slider-range-min").slider("value");
     var action = JSON.stringify($("#tagsinput").tagsinput('items'));
     look(lct,radius,action);
+    isIamfollow(lct,radius,action);
 });
 
 $('input.tagsinput').on('itemRemoved', function(event) {
     var radius = $("#slider-range-min").slider("value");
     var action = JSON.stringify($("#tagsinput").tagsinput('items'));
     look(lct,radius,action);
+    isIamfollow(lct,radius,action);
 });
 
 $("#showFavorites").click(function(event){
@@ -54,6 +58,7 @@ $("#showNews").click(function(event){
     var radius = $("#slider-range-min").slider("value");
     var action = JSON.stringify($("#tagsinput").tagsinput('items'));
     look(lct,radius,action);
+    isIamfollow(lct,radius,action);
 });
 
 $("#aboutProject").click(function(event){
@@ -86,18 +91,11 @@ $(document).ready(function() {
 
     var radius = $("#slider-range-min").slider("value");
     var action = JSON.stringify($("#tagsinput").tagsinput('items'));
+
     look(lct,radius,action);
-    
-    $.ajax({
-        type: "POST",
-        url: "/findPlace",
-        data: { lat: lct.lat, lng: lct.lng, radius : radius, action: action}
-    }).done(function( msg ) {
-
-        $("#custom-switch-05").prop('checked', true);
-    });
-
+    isIamfollow(lct,radius,action);
 });
+
 $("#btnAnmelden").click({announceID: "!{announceID}"}, function(event){
     location.href = '/login'
 })

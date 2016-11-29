@@ -11,26 +11,22 @@ exports.index = function(req, res){
 
     if (typeof req.user !== "undefined") {
 
-        var lat = req.query.lat;
-        var lng = req.query.lng;
+        var userid = String(mongoose.Types.ObjectId(req.user._id));
 
-        userIds = new Array();
-        tags = new Array();
+        var userIds = [];
+        userIds.push(userid);
 
-        var newPlace = new PlaceModel({
-            userIds:userIds,
-            tags:tags,
-            lat:2,
-            lng:3,
-            radius: 1100
+        PlaceModel.find({userIds:{"$in":[userIds]}}, function (err, doc) {
+
+            if(doc.length != 0)
+            {
+                console.log("doc: "+doc);
+                res.sendStatus(200);
+            }
+            else {
+                res.sendStatus(404);
+            }
         });
-
-        newPlace.save(function(err, saved) {
-            if( err || !saved ) console.log("Image not saved"+ err);
-            else console.log("Place saved");
-        });
-
-        res.render('places', { title: 'Nachricht schreiben', lat: lat, lng:lng});
     }
     else
     {
@@ -126,7 +122,7 @@ exports.find = function(req, res){
                 res.sendStatus(200);
             }
             else {
-                res.sendStatus(404);
+                res.sendStatus(900);
             }
         });
     }
