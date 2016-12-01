@@ -71,7 +71,7 @@ function isIamfollow(lct,radius,action)
 
     }).fail(function (jqXHR, textStatus) {
 
-        $("#custom-switch-05").bootstrapSwitch('state', false, false);
+        $("#custom-switch-05").bootstrapSwitch('state', false, true);
     });
 }
 
