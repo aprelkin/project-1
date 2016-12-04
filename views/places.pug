@@ -2,7 +2,7 @@ doctype html
 include mixins.pug
 html
     head
-        title
+        title My places
         meta(name="viewport", content="initial-scale=1.0,user-scalable=no")
 
         link(href='flat/css/vendor/bootstrap.min.css', rel='stylesheet')
@@ -21,42 +21,29 @@ html
                     table.table
                         thead
                             tr
-                                th Place
-                                th Adresse
+                                th Address
                                 th Tags
-                                th folovers
-                                th
+                                th Radius
+                                th Followers
                         tbody
-                            tr
-                                td Munich
-                                td Drygalski Allee 118 923
-                                td hi how the going
-                                td 165
-                                td
-                                    input(type="checkbox", checked, data-toggle="switch", data-on-color="info", data-off-color="primary", id="custom-switch-05")
+                            each place in places
+                                tr
+                                    td=place.address
+                                    td=place.tags
+                                    td=place.radius
+                                    td=place.userIds.length
+                                    td
+                                        input(type="checkbox", checked, data-toggle="switch", data-on-color="info", data-off-color="primary", id="custom-switch-05")
 
-
-                            tr
-                                td Munich
-                                td Drygalski Allee 118 923
-                                td hi how the going
-                                td 165
-                                td
-                                    input(type="checkbox", checked, data-toggle="switch", data-on-color="info", data-off-color="primary", id="custom-switch-05")
-
-
-
+        +modal(1,"savePlaceModal","Do you want to follow this place?", "Yes","btnSave")
+        +modal(1,"deletePlaceModal","Do you want to unfollow this place?", "Yes","btnDelete")
 
 
     script(src='flat/js/vendor/jquery.min.js')
     script(src='flat/js/flat-ui-pro.js')
     script(src='flat/js/application.js')
-    script(type="text/javascript", src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrv4JzWzVEf9X2Qf5XbnFDqciFaWQ3QhM&sensor=true&libraries=places")
-    script(src='/javascripts/spin.js')
-    script(src='/javascripts/global.js')
-    script(src='/javascripts/imgUpload.js')
-    script(src='/javascripts/board.js')
-    script(src='/javascripts/gmap.js')
+    script(src='/javascripts/places.js')
+
 
 
 

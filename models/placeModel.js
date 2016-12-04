@@ -7,6 +7,7 @@ var placeSchema = mongoose.Schema({
     tags:Array,
     lat: Number,
     lng: Number,
+    address:String,
     radius:Number
 });
 

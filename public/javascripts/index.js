@@ -72,11 +72,12 @@ $("#btnSave").on('click',function(event){
 
     var radius = $("#slider-range-min").slider("value");
     var action = JSON.stringify($("#tagsinput").tagsinput('items'));
+    var address = $("#search").val();
 
     $.ajax({
             type: "POST",
             url: "/savePlace",
-            data: { state:true,lat: lct.lat, lng: lct.lng, radius : radius, action: action}
+            data: { state:true,lat: lct.lat, lng: lct.lng, radius : radius, action: action, address:address}
         }).done(function( msg ) {
             $("#savePlaceModal").modal("hide");
         });

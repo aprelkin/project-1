@@ -16,16 +16,11 @@ exports.index = function(req, res){
         var userIds = [];
         userIds.push(userid);
 
-        PlaceModel.find({userIds:{"$in":[userIds]}}, function (err, doc) {
+        PlaceModel.find({userIds:{"$in":[userIds]}}, function (err, docs) {
 
-            if(doc.length != 0)
-            {
-                console.log("doc: "+doc);
-                res.sendStatus(200);
-            }
-            else {
-                res.sendStatus(404);
-            }
+            console.log(docs);
+
+            res.render('places', { places:docs });
         });
     }
     else
@@ -41,6 +36,7 @@ exports.save = function(req, res){
         var action = JSON.parse(req.body.action);
         var lat = req.body.lat;
         var lng = req.body.lng;
+        var address = req.body.address;
         var radius = req.body.radius;
         var userid = String(mongoose.Types.ObjectId(req.user._id));
         var state = (req.body.state === 'true');
@@ -83,6 +79,7 @@ exports.save = function(req, res){
                     tags:action,
                     lat:lat,
                     lng:lng,
+                    address:address,
                     radius: radius
                 });
 
