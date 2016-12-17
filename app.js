@@ -157,6 +157,8 @@ app.get('/places', places.index);
 
 app.post('/savePlace', places.save);
 
+app.post('/deletePlace', places.delete);
+
 app.post('/findPlace', places.find);
 
 app.get('/impressum',impressum.index);

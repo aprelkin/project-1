@@ -33,7 +33,7 @@ html
                                     td=place.radius
                                     td=place.userIds.length
                                     td
-                                        input(type="checkbox", checked, data-toggle="switch", data-on-color="info", data-off-color="primary", id="custom-switch-05")
+                                        input(type="checkbox", checked, data-toggle="switch", data-on-color="info", data-off-color="primary", id=""+place._id, class="custom-switch-05")
 
         +modal(1,"savePlaceModal","Do you want to follow this place?", "Yes","btnSave")
         +modal(1,"deletePlaceModal","Do you want to unfollow this place?", "Yes","btnDelete")
