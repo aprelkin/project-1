@@ -50,7 +50,7 @@ mixin nav(about,username)
                else
                   li
                      a(href='/login') Anmelden
-mixin modal(execute, modalName, text, actionBtnText, actionBtnId)
+mixin modal(execute, modalName, text, actionBtnText, actionBtnId, cancelBtnId)
    if(execute > 0)
        div(class="modal fade", id=modalName)
          div(class="modal-dialog")
@@ -64,7 +64,7 @@ mixin modal(execute, modalName, text, actionBtnText, actionBtnId)
 
                div(class="modal-footer")
                   a(type="button", class="btn", data-dismiss="modal", id="btnSpin")
-                  button(type="button", class="btn btn-default", data-dismiss="modal", id="btnAbbrechen") Abbrechen
+                  button(type="button", class="btn btn-default",data-dismiss="modal", id=cancelBtnId) Cancel
                   button(type="button", class="btn btn-primary", id=actionBtnId)=actionBtnText
 
 

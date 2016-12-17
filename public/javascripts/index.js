@@ -97,6 +97,16 @@ $("#btnDelete").on('click',function(event){
     });
 });
 
+$("#btnDeleteCancel").on('click',function(event){
+
+       $("#custom-switch-05").bootstrapSwitch('state', true, true);
+});
+
+$("#btnSaveCancel").on('click',function(event){
+
+    $("#custom-switch-05").bootstrapSwitch('state', false, true);
+});
+
 
 $("#custom-switch-05").on('switchChange.bootstrapSwitch',function(event, state){
 
