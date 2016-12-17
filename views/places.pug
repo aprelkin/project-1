@@ -35,8 +35,8 @@ html
                                     td
                                         input(type="checkbox", checked, data-toggle="switch", data-on-color="info", data-off-color="primary", id=""+place._id, class="custom-switch-05")
 
-        +modal(1,"savePlaceModal","Do you want to follow this place?", "Yes","btnSave")
-        +modal(1,"deletePlaceModal","Do you want to unfollow this place?", "Yes","btnDelete")
+        +modal(1,"savePlaceModal","Do you want to follow this place?", "Yes","btnSave", "btnSaveCancel")
+        +modal(1,"deletePlaceModal","Do you want to unfollow this place?", "Yes","btnDelete","btnDeleteCancel")
 
 
     script(src='flat/js/vendor/jquery.min.js')

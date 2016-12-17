@@ -46,6 +46,13 @@ $("#btnDelete").on('click',function(event){
     }
 });
 
+$("#btnDeleteCancel").on('click',function(event){
+
+    var place_id = $("#deletePlaceModal").data('place_id');
+
+    $('#'+place_id).bootstrapSwitch('state', true, true);
+});
+
 
 $("#custom-switch-05").on('switchChange.bootstrapSwitch',function(event, state){
 
