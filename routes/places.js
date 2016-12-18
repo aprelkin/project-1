@@ -16,7 +16,7 @@ exports.index = function(req, res){
         var userIds = [];
         userIds.push(userid);
 
-        PlaceModel.find({userIds:{"$in":[userIds]}}, function (err, docs) {
+        PlaceModel.find({userIds:{"$in":userIds}}, function (err, docs) {
 
             console.log(docs);
 
@@ -144,7 +144,7 @@ exports.find = function(req, res){
         var userIds = [];
         userIds.push(userid);
 
-        PlaceModel.findOne({userIds:{"$in":[userIds]}, tags:{"$in":[action]}, lat:lat, lng:lng, radius:radius}, function (err, doc) {
+        PlaceModel.findOne({userIds:{"$in":userIds}, tags:{"$in":[action]}, lat:lat, lng:lng, radius:radius}, function (err, doc) {
 
             if(doc != null)
             {
