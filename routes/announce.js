@@ -8,6 +8,7 @@ var ImgMapModel = require('../models/imgMapModel');
 var UserModel = require('../models/userModel');
 var InputTagModel = require('../models/inputTagModel');
 var FavModel = require('../models/favModel');
+var PlaceModel = require('../models/placeModel');
 var maxmind = require('maxmind'); // maxmind@1
 var path = require('path');
 
@@ -116,8 +117,6 @@ exports.save = function(req, res){
 
     action.splice(maxinputtaglength);
 
-    console.dir(req.files);
-
     var imgs = [];
     var imgLength = 0;
     if(typeof req.files !== "undefined" )
@@ -130,8 +129,6 @@ exports.save = function(req, res){
                 var name = announcementID.toString()+'_'+ 'pic'+'_'+i+'.'+ext.toLowerCase();
 
                 imgs.push(name);
-
-                console.log("req.files[i].path: "+req.files[i].path);
 
                 var oldPath = req.files[i].path;
                 var newPath = appDir + '/public/images/'+name;
@@ -185,9 +182,48 @@ exports.save = function(req, res){
     newAnnouncement.save(function(err, saved) {
         if( err || !saved ) console.log("Annoucement not saved"+ err);
         else console.log("Announcement saved");
-        res.sendStatus(200);
     });
 
+    function addToPlace()
+    {
+        PlaceModel.findOne({tags:{"$in":[action]}, lat:lat, lng:lng, radius:10}, function (err, doc) {
+
+            if(doc != null)
+            {
+                doc.messageIds.push(announcementID.toString());
+
+                doc.save(function(err) {
+                    if (err)
+                        console.log('error')
+                    else
+                        console.log('success')
+                });
+            }
+            else {
+
+                var userIds = [];
+                userIds.push(userid.toString());
+
+                var newPlace = new PlaceModel({
+                    userIds:userIds,
+                    messageIds:announcementID.toString(),
+                    tags:action,
+                    lat:lat,
+                    lng:lng,
+                    address:address,
+                    radius: 10
+                });
+
+                newPlace.save(function(err, saved) {
+                    if( err || !saved ) console.log("Image not saved"+ err);
+                    else console.log("Place saved");
+                });
+
+            }
+        });
+    }
+
+    addToPlace();
 
     function checkInputTag(i) {
         if( i < action.length ) {
@@ -221,6 +257,8 @@ exports.save = function(req, res){
         }
     }
     checkInputTag(0);
+
+    res.sendStatus(200);
 };
 
 exports.delete = function(req,res)
