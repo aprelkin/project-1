@@ -191,6 +191,7 @@ exports.save = function(req, res){
             if(doc != null)
             {
                 doc.messageIds.push(announcementID.toString());
+                doc.userIds.push(userid.toString());
 
                 doc.save(function(err) {
                     if (err)
