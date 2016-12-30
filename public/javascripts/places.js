@@ -77,3 +77,4 @@ $(".custom-switch-05").on('switchChange.bootstrapSwitch',function(event, state){
         $("#deletePlaceModal").data('place_id', event.target.id).modal("show");
     }
 });
+

@@ -57,6 +57,10 @@ exports.init = function(req, res){
     res.render('index', { title: 'Pencilbox', town: cityObject['city'].names['en'],  lat: cityObject['location'].latitude, lng: cityObject['location'].longitude, username:username });
 };
 
+exports.showMessages = function(req, res)
+{
+    console.log("show Messages");
+}
 
 exports.find = function(req, res){
 
@@ -264,15 +268,37 @@ exports.save = function(req, res){
 
 exports.delete = function(req,res)
 {
+    var announcementID = req.body.announceid;
+
     AnnounceModel.findOne({_id: mongoose.Types.ObjectId(req.body.announceid)}, function(err, announcement){
 
         if(req.user._id == announcement.userID)
         {
-            console.log("delete");
-
             AnnounceModel.remove({_id: mongoose.Types.ObjectId(req.body.announceid)},function(){
 
-                console.log("announcement removed");
+                console.log("announcement removed  :" +announcementID);
+
+                PlaceModel.findOne({messageIds:{"$in":announcementID}}, function (err, doc) {
+
+                    if(doc != null)
+                    {
+                        console.log("dasdasdadadas");
+                        doc.messageIds.splice(announcementID.toString(), 1);
+
+                        doc.save(function(err) {
+                            if (err)
+                                console.log('error')
+                            else
+                                console.log('success')
+                        });
+                    }
+                    else {
+
+                        console.log("announcement removed  :" +announcementID);
+
+
+                    }
+                });
 
                 res.sendStatus(200);
             });

@@ -147,6 +147,8 @@ app.get('/', announce.init);
 
 app.post('/look',announce.find);
 
+app.post('/showMessages', announce.showMessages);
+
 app.post('/showMyFavarites', fav.showMyFavarites);
 
 app.post('/save',upload.array('img', 12), announce.save);
