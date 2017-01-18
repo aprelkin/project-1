@@ -147,7 +147,7 @@ app.get('/', announce.init);
 
 app.post('/look',announce.find);
 
-app.post('/showMessages', announce.showMessages);
+app.get('/showMessages', announce.showMessages);
 
 app.post('/showMyFavarites', fav.showMyFavarites);
 

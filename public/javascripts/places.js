@@ -78,3 +78,7 @@ $(".custom-switch-05").on('switchChange.bootstrapSwitch',function(event, state){
     }
 });
 
+$(".messageCounter").on("click", function (event) {
+
+    window.location = "showMessages?placeId="+this.id;
+});

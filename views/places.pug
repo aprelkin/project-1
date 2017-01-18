@@ -23,7 +23,7 @@ html
                     table.table
                         thead
                             tr
-                                th New messages
+                                th Messages
                                 th Address
                                 th Tags
                                 th Radius
@@ -32,7 +32,7 @@ html
                             each place in places
                                 tr
                                     td
-                                        div.messageCounter=place.messageIds.length
+                                        div.messageCounter(id="pid_"+place._id)=place.messageIds.length
                                     td(style="vertical-align:middle")=place.address
                                     td(style="vertical-align:middle")=place.tags
                                     td(style="vertical-align:middle")=place.radius

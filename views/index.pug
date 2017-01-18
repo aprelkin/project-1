@@ -40,7 +40,10 @@ head
                             button.btn(type='button')
                                 span.fui-location
                 div.tagsinput-default
-                    input.tagsinput.tagsinput-typeahead.input-lg(name="tagsinput-02",id="tagsinput",value="Stichwörter", placeholder='Tipp hier deine Stichwörter')
+                    - var value="";
+                        each item, index in tags
+                            - value +=item+((index+1)==tags.length?"":",")
+                    input.tagsinput.tagsinput-typeahead.input-lg(name="tagsinput-02",id="tagsinput",value=value, placeholder='Tipp hier deine Stichwörter')
                 div#slider-range-min
                 input(type="text",id="amount", readonly, style="border:0; background-color: #eee; color:#3498DB;")
                 div.flat-right

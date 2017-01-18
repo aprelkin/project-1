@@ -54,12 +54,53 @@ exports.init = function(req, res){
         cityObject = cityLookup.get("66.6.44.4"); // NY
     }
 
-    res.render('index', { title: 'Pencilbox', town: cityObject['city'].names['en'],  lat: cityObject['location'].latitude, lng: cityObject['location'].longitude, username:username });
+    var tags = ["Stichwörter"];
+    res.render('index', { title: 'Pencilbox', town: cityObject['city'].names['en'],  lat: cityObject['location'].latitude, lng: cityObject['location'].longitude, tags:tags, username:username });
 };
 
-exports.showMessages = function(req, res)
-{
-    console.log("show Messages");
+exports.showMessages = function(req, res) {
+
+    var username = "";
+
+    if (typeof req.user !== "undefined") {
+
+        if(typeof req.user.local.username !== "undefined")
+        {
+            console.log("local");
+            username = req.user.local.username;
+        }
+        if(typeof req.user.twitter.username !== "undefined")
+        {
+            console.log("twitter");
+            username = "@"+req.user.twitter.username;
+        }
+        if(typeof req.user.facebook.name !== "undefined")
+        {
+            console.log("facebook");
+            username = req.user.facebook.name;
+        }
+        if(typeof req.user.google.name !== "undefined")
+        {
+            console.log("google");
+            username = req.user.google.name;
+        }
+    }
+
+    var place_id = req.query.placeId.split("pid_")[1];
+
+    console.log(place_id);
+
+    PlaceModel.findOne({_id:place_id}, function (err, doc) {
+
+        if(doc != null)
+        {
+            res.render('index', { title: 'Pencilbox', town: doc.address,  lat: doc.lat, lng: doc.lng, tags:doc.tags, username:username });
+        }
+        else {
+            res.sendStatus(900);
+        }
+    });
+
 }
 
 exports.find = function(req, res){
