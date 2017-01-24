@@ -42,7 +42,7 @@ mixin nav(about,username)
 
             ul.nav.navbar-nav.navbar-right
                li
-                  a.btn.btn-info.pb-bradius-0px(href="/put?lat="+lat + "&lng="+lng)
+                  a(href="/put?lat="+lat + "&lng="+lng)
                      span.icon-436118489922255_9121461706893368219_n(style="font-size:2em")
                if username.length > 0
                   li.dropdown
