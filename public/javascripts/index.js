@@ -121,6 +121,13 @@ $("#custom-switch-05").on('switchChange.bootstrapSwitch',function(event, state){
 });
 
 
+$("#custom-switch-04").on('switchChange.bootstrapSwitch',function(event, state){
+
+    $("#anmeldenModal").modal("show");
+
+    setTimeout(function(){ $("#custom-switch-04").bootstrapSwitch('state', false, true); }, 500);
+});
+
 // Start point
 $(document).ready(function() {
     
