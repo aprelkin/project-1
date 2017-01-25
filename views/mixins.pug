@@ -73,8 +73,9 @@ mixin modal(execute, modalName, text, actionBtnText, actionBtnId, cancelBtnId)
 
                div(class="modal-footer")
                   a(type="button", class="btn", data-dismiss="modal", id="btnSpin")
-                  button(type="button", class="btn btn-default", data-dismiss="modal", id=cancelBtnId) Cancel
-                  button(type="button", class="btn btn-primary", id=actionBtnId)=actionBtnText
+                  div(class="btn-group", role="group", aria-label="...")
+                     button(type="button", class="btn btn-default", data-dismiss="modal", id=cancelBtnId) Cancel
+                     button(type="button", class="btn btn-primary", id=actionBtnId)=actionBtnText
 
 
 
