@@ -145,3 +145,16 @@ $(document).ready(function() {
 $("#btnAnmelden").click({announceID: "!{announceID}"}, function(event){
     location.href = '/login'
 })
+
+
+$("#search").click(function () {
+    $("span.fui-location").removeClass("fui-location").addClass("fui-cross");
+})
+
+$("#search").blur(function () {
+    $("span.fui-cross").removeClass("fui-cross").addClass("fui-location");
+})
+
+$("#btnRemoveLocation").click(function () {
+    $("#search").val("");
+})
