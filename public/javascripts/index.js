@@ -147,7 +147,7 @@ $("#btnAnmelden").click({announceID: "!{announceID}"}, function(event){
 })
 
 
-$("#search").click(function () {
+$("#search").focus(function () {
     $("span.fui-location").removeClass("fui-location").addClass("fui-cross");
 })
 
@@ -156,5 +156,5 @@ $("#search").blur(function () {
 })
 
 $("#btnRemoveLocation").click(function () {
-    $("#search").val("");
+    $("#search").val("").focus();
 })
