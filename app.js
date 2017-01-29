@@ -37,7 +37,7 @@ app.set('view engine', 'pug');
 
 //app.use(express.cookieParser('keyboard cat'));
 app.use(cookieParser()); // read cookies (needed for auth)
-app.use(cookieSession({ name: 'session',keys: ['key1', 'key2'] })); // session secret
+app.use(cookieSession({ name: 'session',keys: ['key1', 'key2'], maxAge: 365 * 24 * 60 * 60 * 1000 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash()); // use connect-flash for flash messages stored in session
