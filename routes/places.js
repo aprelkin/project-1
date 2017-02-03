@@ -155,4 +155,8 @@ exports.find = function(req, res){
             }
         });
     }
+    else
+    {
+        res.sendStatus(900);
+    }
 };
