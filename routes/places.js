@@ -40,6 +40,7 @@ exports.save = function(req, res){
         var radius = req.body.radius;
         var userid = String(mongoose.Types.ObjectId(req.user._id));
         var state = (req.body.state === 'true');
+        var announcementId = req.body.announceID;
 
         PlaceModel.findOne({tags:{"$in":[action]}, lat:lat, lng:lng, radius:radius}, function (err, doc) {
 
@@ -56,6 +57,20 @@ exports.save = function(req, res){
                         else
                             console.log('success')
                     });
+                }
+                else if(state)
+                {
+                    if (typeof announcementId !=="undefined")
+                    {
+                        doc.messageIds.push(announcementId.toString());
+                        doc.save(function(err) {
+                            if (err)
+                                console.log('error')
+                            else
+                                console.log('success')
+                        });
+                    }
+
                 }
                 else if(!state)
                 {
@@ -74,8 +89,17 @@ exports.save = function(req, res){
             {
                 var userIds = [];
                 userIds.push(userid);
+
+                var announcementIds = [];
+
+                if (typeof announcementId !=="undefined")
+                {
+                    announcementIds.push(announcementId.toString());
+                }
+
                 var newPlace = new PlaceModel({
                     userIds:userIds,
+                    messageIds:announcementIds,
                     tags:action,
                     lat:lat,
                     lng:lng,
@@ -111,7 +135,10 @@ exports.delete = function(req, res)
             if(doc != null)
             {
                 // in case unfollow remove person from this place
-                doc.userIds.splice(userid, 1);
+
+                var index = doc.userIds.indexOf(userid);
+                
+                doc.userIds.splice(index, 1);
 
                 doc.save(function(err) {
                     if (err)
@@ -126,9 +153,48 @@ exports.delete = function(req, res)
                 res.sendStatus(900);
             }
         });
-
         
     }
+}
+
+
+exports.deleteUserAndAnnounce = function(req, res)
+{
+    var userId = String(mongoose.Types.ObjectId(req.user._id));
+    var announcementId  = req.body.announceid;
+
+    console.log(" exports.deleteUserAndAnnounce announcementId : "+announcementId)
+
+    var userIds = [];
+    userIds.push(userId);
+
+    var announcementIds = [];
+    announcementIds.push(announcementId.toString());
+
+    PlaceModel.findOne({userIds:{"$in":userIds}, messageIds:{"$in":announcementIds}}, function (err, doc) {
+
+        if(doc != null)
+        {
+            // in case unfollow remove person from this place
+            //doc.userIds.splice(userId, 1);
+
+            var index = doc.messageIds.indexOf(announcementId);
+
+            doc.messageIds.splice(index,1);
+
+            doc.save(function(err) {
+                if (err)
+                    console.log('error')
+                else
+                    console.log('success')
+            });
+
+            res.sendStatus(200);
+        }
+        else {
+            res.sendStatus(900);
+        }
+    });
 }
 
 exports.find = function(req, res){

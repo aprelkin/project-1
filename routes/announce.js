@@ -141,7 +141,7 @@ exports.find = function(req, res){
  * @param res
  */
 
-exports.save = function(req, res){
+exports.save = function(req, res, next){
 
     var maxinputtaglength = 30;
     var announcementID = mongoose.Types.ObjectId();
@@ -228,48 +228,7 @@ exports.save = function(req, res){
         if( err || !saved ) console.log("Annoucement not saved"+ err);
         else console.log("Announcement saved");
     });
-
-    function addToPlace()
-    {
-        PlaceModel.findOne({tags:{"$in":[action]}, lat:lat, lng:lng, radius:10}, function (err, doc) {
-
-            if(doc != null)
-            {
-                doc.messageIds.push(announcementID.toString());
-                doc.userIds.push(userid.toString());
-
-                doc.save(function(err) {
-                    if (err)
-                        console.log('error')
-                    else
-                        console.log('success')
-                });
-            }
-            else {
-
-                var userIds = [];
-                userIds.push(userid.toString());
-
-                var newPlace = new PlaceModel({
-                    userIds:userIds,
-                    messageIds:announcementID.toString(),
-                    tags:action,
-                    lat:lat,
-                    lng:lng,
-                    address:address,
-                    radius: 10
-                });
-
-                newPlace.save(function(err, saved) {
-                    if( err || !saved ) console.log("Image not saved"+ err);
-                    else console.log("Place saved");
-                });
-
-            }
-        });
-    }
-
-    addToPlace();
+    
 
     function checkInputTag(i) {
         if( i < action.length ) {
@@ -303,50 +262,55 @@ exports.save = function(req, res){
         }
     }
     checkInputTag(0);
+    
+    // for save place
+    req.body.state = "true";
+    req.body.radius = 10;
+    req.body.announceID = announcementID.toString();
 
-    res.sendStatus(200);
+    return next();
 };
 
-exports.delete = function(req,res)
+exports.delete = function(req,res, next)
 {
     var announcementID = req.body.announceid;
+    
+    console.log("exports.delete announcementID step 1: "+announcementID);
 
     AnnounceModel.findOne({_id: mongoose.Types.ObjectId(req.body.announceid)}, function(err, announcement){
 
-        if(req.user._id == announcement.userID)
-        {
-            AnnounceModel.remove({_id: mongoose.Types.ObjectId(req.body.announceid)},function(){
+        if(announcement != null) {
 
-                console.log("announcement removed  :" +announcementID);
+            if (req.user._id == announcement.userID) {
+                AnnounceModel.remove({_id: mongoose.Types.ObjectId(req.body.announceid)}, function () {
 
-                PlaceModel.findOne({messageIds:{"$in":announcementID}}, function (err, doc) {
+                    PlaceModel.findOne({messageIds: {"$in": announcementID}}, function (err, doc) {
 
-                    if(doc != null)
-                    {
-                        console.log("dasdasdadadas");
-                        doc.messageIds.splice(announcementID.toString(), 1);
+                        if (doc != null) {
 
-                        doc.save(function(err) {
-                            if (err)
-                                console.log('error')
-                            else
-                                console.log('success')
-                        });
-                    }
-                    else {
+                            var index = doc.messageIds.indexOf(announcementID.toString());
 
-                        console.log("announcement removed  :" +announcementID);
+                            doc.messageIds.splice(index, 1);
 
+                            doc.save(function (err) {
+                                if (err)
+                                    console.log('error')
+                                else
+                                    console.log('success')
+                            });
+                        }
+                        else {
 
-                    }
+                            console.log("announcement removed  :" + announcementID);
+                        }
+                    });
+
+                    return next();
                 });
-
-                res.sendStatus(200);
-            });
-        }
-        else
-        {
-            console.log("users not equal");
+            }
+            else {
+                console.log("users not equal");
+            }
         }
     });
 }
