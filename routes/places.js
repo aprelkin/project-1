@@ -33,7 +33,16 @@ exports.save = function(req, res){
 
     if (typeof req.user !== "undefined") {
 
+        var maxinputtaglength = 30;
         var action = JSON.parse(req.body.action);
+
+        for (var i =0; i < action.length; i++)
+        {
+            action[i] = action[i].toLowerCase();
+        }
+
+        action.splice(maxinputtaglength);
+
         var lat = req.body.lat;
         var lng = req.body.lng;
         var address = req.body.address;
@@ -41,6 +50,8 @@ exports.save = function(req, res){
         var userid = String(mongoose.Types.ObjectId(req.user._id));
         var state = (req.body.state === 'true');
         var announcementId = req.body.announceID;
+
+        console.log("lng: "+lng + " lat:  "+lat);
 
         PlaceModel.findOne({tags:{"$in":[action]}, lat:lat, lng:lng, radius:radius}, function (err, doc) {
 
@@ -189,11 +200,10 @@ exports.deleteUserAndAnnounce = function(req, res)
                     console.log('success')
             });
 
-            res.sendStatus(200);
         }
-        else {
-            res.sendStatus(900);
-        }
+
+        res.sendStatus(200);
+
     });
 }
 

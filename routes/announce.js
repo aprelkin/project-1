@@ -153,6 +153,8 @@ exports.save = function(req, res, next){
     var lng = req.body.lng;
     var address = req.body.address;
 
+    console.log("lat :"+lat + " lng!!!!!! "+lng);
+
     var action = JSON.parse(req.body.action);
 
     for (var i =0; i < action.length; i++)
