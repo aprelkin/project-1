@@ -214,6 +214,11 @@ exports.find = function(req, res){
         var userIds = [];
         userIds.push(userid);
 
+        for (var i =0; i < action.length; i++)
+        {
+            action[i] = action[i].toLowerCase();
+        }
+
         PlaceModel.findOne({userIds:{"$in":userIds}, tags:{"$in":[action]}, lat:lat, lng:lng, radius:radius}, function (err, doc) {
 
             if(doc != null)
