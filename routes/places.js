@@ -57,11 +57,23 @@ exports.save = function(req, res){
 
             if(doc != null)
             {
+                console.log("::: the place exists already");
                 var index = doc.userIds.indexOf(userid);
                 
-                if(index < 0 && state)
+                if(state)
                 {
-                    doc.userIds.push(userid);
+                    if(index < 0)
+                    {
+                        console.log("::: add user to place");
+                        doc.userIds.push(userid);
+                    }
+
+                    if (typeof announcementId !=="undefined")
+                    {
+                        console.log("::: add message to place");
+                        doc.messageIds.push(announcementId.toString());
+                    }
+
                     doc.save(function(err) {
                         if (err)
                             console.log('error')
@@ -69,22 +81,9 @@ exports.save = function(req, res){
                             console.log('success')
                     });
                 }
-                else if(state)
-                {
-                    if (typeof announcementId !=="undefined")
-                    {
-                        doc.messageIds.push(announcementId.toString());
-                        doc.save(function(err) {
-                            if (err)
-                                console.log('error')
-                            else
-                                console.log('success')
-                        });
-                    }
-
-                }
                 else if(!state)
                 {
+                    console.log("::: remove user from place");
                     // in case unfollow remove person from this place
                     doc.userIds.splice(index, 1);
 
@@ -98,6 +97,9 @@ exports.save = function(req, res){
             }
             else if(state)
             {
+                console.log("::: the place is was not exists");
+                console.log("::: add message to place");
+
                 var userIds = [];
                 userIds.push(userid);
 
@@ -105,6 +107,7 @@ exports.save = function(req, res){
 
                 if (typeof announcementId !=="undefined")
                 {
+                    console.log("::: add message to place");
                     announcementIds.push(announcementId.toString());
                 }
 
@@ -171,24 +174,15 @@ exports.delete = function(req, res)
 
 exports.deleteUserAndAnnounce = function(req, res)
 {
-    var userId = String(mongoose.Types.ObjectId(req.user._id));
     var announcementId  = req.body.announceid;
-
-    console.log(" exports.deleteUserAndAnnounce announcementId : "+announcementId)
-
-    var userIds = [];
-    userIds.push(userId);
 
     var announcementIds = [];
     announcementIds.push(announcementId.toString());
 
-    PlaceModel.findOne({userIds:{"$in":userIds}, messageIds:{"$in":announcementIds}}, function (err, doc) {
+    PlaceModel.findOne({messageIds:{"$in":announcementIds}}, function (err, doc) {
 
         if(doc != null)
         {
-            // in case unfollow remove person from this place
-            //doc.userIds.splice(userId, 1);
-
             var index = doc.messageIds.indexOf(announcementId);
 
             doc.messageIds.splice(index,1);

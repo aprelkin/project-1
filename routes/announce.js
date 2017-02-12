@@ -54,8 +54,17 @@ exports.init = function(req, res){
         cityObject = cityLookup.get("66.6.44.4"); // NY
     }
 
+    console.log("lat: "+cityObject['location'].latitude + " lng: "+cityObject['location'].longitude + " : "+parseFloat(cityObject['location'].latitude).toFixed(3) +  " : "+ parseFloat(cityObject['location'].longitude).toFixed(3));
+
+
+    // there are two lat, lng input: one from ip, anoter from google map marker
+    // to avoid inconsistency fix value till 3 sign after comma     
+
+    var lat = parseFloat(cityObject['location'].latitude).toFixed(3);
+    var lng = parseFloat(cityObject['location'].longitude).toFixed(3);
+    
     var tags = ["Stichwörter"];
-    res.render('index', { title: 'Pencilbox', town: cityObject['city'].names['en'],  lat: cityObject['location'].latitude, lng: cityObject['location'].longitude, tags:tags, username:username });
+    res.render('index', { title: 'Pencilbox', town: cityObject['city'].names['en'],  lat: lat, lng: lng, tags:tags, username:username });
 };
 
 exports.showMessages = function(req, res) {
@@ -87,8 +96,6 @@ exports.showMessages = function(req, res) {
     }
 
     var place_id = req.query.placeId.split("pid_")[1];
-
-    console.log(place_id);
 
     PlaceModel.findOne({_id:place_id}, function (err, doc) {
 
@@ -152,8 +159,6 @@ exports.save = function(req, res, next){
     var lat = req.body.lat;
     var lng = req.body.lng;
     var address = req.body.address;
-
-    console.log("lat :"+lat + " lng!!!!!! "+lng);
 
     var action = JSON.parse(req.body.action);
 
@@ -277,8 +282,6 @@ exports.delete = function(req,res, next)
 {
     var announcementID = req.body.announceid;
     
-    console.log("exports.delete announcementID step 1: "+announcementID);
-
     AnnounceModel.findOne({_id: mongoose.Types.ObjectId(req.body.announceid)}, function(err, announcement){
 
         if(announcement != null) {
@@ -319,14 +322,10 @@ exports.delete = function(req,res, next)
 
 exports.update = function(req,res)
 {
-    console.log("update announce : id "+req.body.announceid  +  " text: "+req.body.text);
-
     AnnounceModel.findOne({_id: mongoose.Types.ObjectId(req.body.announceid)}, function(err, announcement){
 
         if(req.user._id == announcement.userID)
         {
-            console.log("update");
-            
             announcement.announcement = req.body.text;
 
             announcement.save(function(err) {

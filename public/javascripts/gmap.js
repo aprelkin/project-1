@@ -44,10 +44,16 @@ function initialize() {
 
     var action = JSON.stringify($("#tagsinput").tagsinput('items'));
     var url = "/save";
-
+     
+    // there are two lat, lng input: one from ip, anoter from google map marker
+    // to avoid inconsistency fix value till 3 sign after comma
+        
+    var lat = parseFloat(markerPosition.lat()).toFixed(3);
+    var lng = parseFloat(markerPosition.lng()).toFixed(3);
+        
     fd.append("position", markerPosition);
-    fd.append("lat", markerPosition.lat());
-    fd.append("lng", markerPosition.lng());
+    fd.append("lat", lat);
+    fd.append("lng", lng);
     fd.append("announcement", message.value);
     fd.append("action", action);
     fd.append("address",address.value);
@@ -78,8 +84,6 @@ function initialize() {
 
     http.send(fd);
     });
-
-
 
     var input = document.getElementById('target');
     var searchBox = new google.maps.places.SearchBox(input);
