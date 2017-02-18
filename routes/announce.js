@@ -53,9 +53,7 @@ exports.init = function(req, res){
 
         cityObject = cityLookup.get("66.6.44.4"); // NY
     }
-
-    console.log("lat: "+cityObject['location'].latitude + " lng: "+cityObject['location'].longitude + " : "+parseFloat(cityObject['location'].latitude).toFixed(3) +  " : "+ parseFloat(cityObject['location'].longitude).toFixed(3));
-
+    
 
     // there are two lat, lng input: one from ip, anoter from google map marker
     // to avoid inconsistency fix value till 3 sign after comma     
@@ -108,6 +106,45 @@ exports.showMessages = function(req, res) {
         }
     });
 
+}
+
+exports.count = function(req, res){
+
+        var i = 0;
+        count(i, req, res);
+};
+
+function count(i, req, res)
+{
+    if(i < req.places.length) {
+
+        var place = req.places[i];
+        var actObj = [];
+
+        for (var index = 0; index < place.tags.length; index++) {
+            actObj.push({action: place.tags[index]});
+        }
+
+        AnnounceModel.where('loc').within({
+            center: [parseFloat(place.lat), parseFloat(place.lng)],
+            radius: place.radius / 6371,
+            unique: true,
+            spherical: true
+        }).find({$and: actObj}).exec(
+            function (err, result) {
+
+                if (err || !result) console.log("Announcement not found" + err)
+                else {
+                    console.log("ii: "+i);
+                    req.places[i].messageSize = result.length;
+                    i++;
+                    count(i, req, res);
+                }
+            });
+    }
+    else {
+         res.render('places', { places:req.places });
+    }
 }
 
 exports.find = function(req, res){
@@ -278,7 +315,7 @@ exports.save = function(req, res, next){
     return next();
 };
 
-exports.delete = function(req,res, next)
+exports.delete = function(req,res)
 {
     var announcementID = req.body.announceid;
     
@@ -289,28 +326,9 @@ exports.delete = function(req,res, next)
             if (req.user._id == announcement.userID) {
                 AnnounceModel.remove({_id: mongoose.Types.ObjectId(req.body.announceid)}, function () {
 
-                    PlaceModel.findOne({messageIds: {"$in": announcementID}}, function (err, doc) {
+                    console.log("announcement removed  :" + announcementID);
 
-                        if (doc != null) {
-
-                            var index = doc.messageIds.indexOf(announcementID.toString());
-
-                            doc.messageIds.splice(index, 1);
-
-                            doc.save(function (err) {
-                                if (err)
-                                    console.log('error')
-                                else
-                                    console.log('success')
-                            });
-                        }
-                        else {
-
-                            console.log("announcement removed  :" + announcementID);
-                        }
-                    });
-
-                    return next();
+                    res.sendStatus(200);
                 });
             }
             else {

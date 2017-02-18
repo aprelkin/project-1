@@ -7,7 +7,7 @@ var PlaceModel = require('../models/placeModel');
 var mongoose = require('mongoose');
 
 
-exports.index = function(req, res){
+exports.index = function(req, res, next){
 
     if (typeof req.user !== "undefined") {
 
@@ -16,11 +16,10 @@ exports.index = function(req, res){
         var userIds = [];
         userIds.push(userid);
 
-        PlaceModel.find({userIds:{"$in":userIds}}, function (err, docs) {
-
-            console.log(docs);
-
-            res.render('places', { places:docs });
+        PlaceModel.find({userIds:{"$in":userIds}}, function (err, places) {
+            
+            req.places = places;
+            return next();
         });
     }
     else
@@ -49,9 +48,6 @@ exports.save = function(req, res){
         var radius = req.body.radius;
         var userid = String(mongoose.Types.ObjectId(req.user._id));
         var state = (req.body.state === 'true');
-        var announcementId = req.body.announceID;
-
-        console.log("lng: "+lng + " lat:  "+lat);
 
         PlaceModel.findOne({tags:{"$in":[action]}, lat:lat, lng:lng, radius:radius}, function (err, doc) {
 
@@ -66,12 +62,6 @@ exports.save = function(req, res){
                     {
                         console.log("::: add user to place");
                         doc.userIds.push(userid);
-                    }
-
-                    if (typeof announcementId !=="undefined")
-                    {
-                        console.log("::: add message to place");
-                        doc.messageIds.push(announcementId.toString());
                     }
 
                     doc.save(function(err) {
@@ -97,23 +87,14 @@ exports.save = function(req, res){
             }
             else if(state)
             {
-                console.log("::: the place is was not exists");
-                console.log("::: add message to place");
+                console.log("::: the place was not exists");
+                console.log("::: add user to place");
 
                 var userIds = [];
                 userIds.push(userid);
 
-                var announcementIds = [];
-
-                if (typeof announcementId !=="undefined")
-                {
-                    console.log("::: add message to place");
-                    announcementIds.push(announcementId.toString());
-                }
-
                 var newPlace = new PlaceModel({
                     userIds:userIds,
-                    messageIds:announcementIds,
                     tags:action,
                     lat:lat,
                     lng:lng,
@@ -169,36 +150,6 @@ exports.delete = function(req, res)
         });
         
     }
-}
-
-
-exports.deleteUserAndAnnounce = function(req, res)
-{
-    var announcementId  = req.body.announceid;
-
-    var announcementIds = [];
-    announcementIds.push(announcementId.toString());
-
-    PlaceModel.findOne({messageIds:{"$in":announcementIds}}, function (err, doc) {
-
-        if(doc != null)
-        {
-            var index = doc.messageIds.indexOf(announcementId);
-
-            doc.messageIds.splice(index,1);
-
-            doc.save(function(err) {
-                if (err)
-                    console.log('error')
-                else
-                    console.log('success')
-            });
-
-        }
-
-        res.sendStatus(200);
-
-    });
 }
 
 exports.find = function(req, res){

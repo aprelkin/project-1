@@ -155,7 +155,7 @@ app.post('/save',upload.array('img', 12), announce.save, places.save);
 
 app.get('/put', board.index);
 
-app.get('/places', places.index);
+app.get('/places', places.index, announce.count);
 
 app.post('/savePlace', places.save);
 
@@ -174,7 +174,7 @@ app.get('/logout', function(req, res) {
 
 app.get('/typeahead', announce.typeahead);
 
-app.post('/delete', announce.delete,places.deleteUserAndAnnounce);
+app.post('/delete', announce.delete);
 
 app.post('/update', announce.update);
 
