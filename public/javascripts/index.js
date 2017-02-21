@@ -1,6 +1,12 @@
-$("#slider-range-min").slider({
+
+// Start point
+$(document).ready(function() {
+
+    lct.radius = $("#radius").attr("value");
+
+    $("#slider-range-min").slider({
     range: "min",
-    value: 9,
+    value: lct.radius,
     min: 0,
     max: 10,
     slide: function( event, ui ) {
@@ -128,8 +134,6 @@ $("#custom-switch-04").on('switchChange.bootstrapSwitch',function(event, state){
     setTimeout(function(){ $("#custom-switch-04").bootstrapSwitch('state', false, true); }, 500);
 });
 
-// Start point
-$(document).ready(function() {
     
     // get initial location from IP maxmind database
     lct.lat = $("#lat").attr("value");
@@ -140,7 +144,7 @@ $(document).ready(function() {
 
     look(lct,radius,action);
     isIamfollow(lct,radius,action);
-});
+
 
 $("#btnAnmelden").click({announceID: "!{announceID}"}, function(event){
     location.href = '/login'
@@ -158,3 +162,5 @@ $("#search").blur(function () {
 $("#btnRemoveLocation").click(function () {
     $("#search").val("").focus();
 })
+
+});

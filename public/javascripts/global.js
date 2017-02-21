@@ -1,6 +1,7 @@
 var lct = new Object;
     lct.lat = 0;
     lct.lng = 0;
+    lct.radius = 0;
 
 var announceID = 0;
 

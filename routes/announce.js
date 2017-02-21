@@ -62,7 +62,7 @@ exports.init = function(req, res){
     var lng = parseFloat(cityObject['location'].longitude).toFixed(3);
     
     var tags = ["Stichwörter"];
-    res.render('index', { title: 'Pencilbox', town: cityObject['city'].names['en'],  lat: lat, lng: lng, tags:tags, username:username });
+    res.render('index', { title: 'Pencilbox', town: cityObject['city'].names['en'],  lat: lat, lng: lng, tags:tags, radius: 9, username:username });
 };
 
 exports.showMessages = function(req, res) {
@@ -99,7 +99,7 @@ exports.showMessages = function(req, res) {
 
         if(doc != null)
         {
-            res.render('index', { title: 'Pencilbox', town: doc.address,  lat: doc.lat, lng: doc.lng, tags:doc.tags, username:username });
+            res.render('index', { title: 'Pencilbox', town: doc.address,  lat: doc.lat, lng: doc.lng, tags:doc.tags, radius: doc.radius, username:username });
         }
         else {
             res.sendStatus(900);
