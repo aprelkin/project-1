@@ -252,6 +252,18 @@ function updateText(announceID,text)
         }
     });
 
+    $("#search").focus(function () {
+        $("span.fui-location").removeClass("fui-location").addClass("fui-cross");
+    })
+
+    $("#search").blur(function () {
+        $("span.fui-cross").removeClass("fui-cross").addClass("fui-location");
+    })
+
+    $("#btnRemoveLocation").click(function () {
+        $("#search").val("").focus();
+    })
+
     // get initial location from IP maxmind database
     lct.lat = $("#lat").attr("value");
     lct.lng = $("#lng").attr("value");
