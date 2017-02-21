@@ -16,7 +16,10 @@ $(document).ready(function() {
 
 $( "#amount" ).val("Umkreis "+ $( "#slider-range-min" ).slider( "value" ) +" Kilometer");
 
-$('input.tagsinput').tagsinput({trimValue: true});
+
+$('input.tagsinput').tagsinput({trimValue: true, confirmKeys: [13, 32], onBlur:true});
+
+
 
 $('input.tagsinput-typeahead').tagsinput('input').typeahead(null, {
 

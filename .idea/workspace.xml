@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c99ea3b1-d0a0-4ef1-abf3-98c1394bfeb1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/news.js" afterPath="$PROJECT_DIR$/public/javascripts/news.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/announce.js" afterPath="$PROJECT_DIR$/routes/announce.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/news.js" afterPath="$PROJECT_DIR$/routes/news.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/news.pug" afterPath="$PROJECT_DIR$/views/news.pug" />
     </list>
     <ignored path="pb3.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,7 +23,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="announce.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="announce.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/announce.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="299">
@@ -60,7 +56,7 @@
       <file leaf-file-name="news.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/news.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
+            <state relative-caret-position="1245">
               <caret line="83" column="122" selection-start-line="83" selection-start-column="122" selection-end-line="83" selection-end-column="122" />
               <folding />
             </state>
@@ -70,18 +66,18 @@
       <file leaf-file-name="places.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/places.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
+            <state relative-caret-position="1005">
               <caret line="67" column="5" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="news.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="news.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/javascripts/news.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="208" column="77" selection-start-line="208" selection-start-column="77" selection-end-line="208" selection-end-column="77" />
+            <state relative-caret-position="285">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -90,8 +86,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="704">
-              <caret line="142" column="68" selection-start-line="141" selection-start-column="3" selection-end-line="142" selection-end-column="68" />
+            <state relative-caret-position="315">
+              <caret line="21" column="55" selection-start-line="21" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -100,7 +96,7 @@
       <file leaf-file-name="look.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/look.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
+            <state relative-caret-position="1065">
               <caret line="71" column="42" selection-start-line="71" selection-start-column="42" selection-end-line="71" selection-end-column="42" />
               <folding />
             </state>
@@ -110,7 +106,7 @@
       <file leaf-file-name="index.pug" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/index.pug">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="810">
+            <state relative-caret-position="1395">
               <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
               <folding />
             </state>
@@ -171,9 +167,9 @@
         <option value="$PROJECT_DIR$/public/javascripts/index.js" />
         <option value="$PROJECT_DIR$/views/mixins.pug" />
         <option value="$PROJECT_DIR$/views/news.pug" />
-        <option value="$PROJECT_DIR$/public/javascripts/news.js" />
         <option value="$PROJECT_DIR$/routes/news.js" />
         <option value="$PROJECT_DIR$/routes/announce.js" />
+        <option value="$PROJECT_DIR$/public/javascripts/news.js" />
       </list>
     </option>
   </component>
@@ -234,8 +230,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -570,11 +566,12 @@
       <workItem from="1487689966950" duration="1471000" />
       <workItem from="1487694910249" duration="1617000" />
       <workItem from="1487696740672" duration="653000" />
+      <workItem from="1487699052755" duration="54000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="194469000" />
+    <option name="totallyTimeSpent" value="194523000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="81" y="24" width="1839" height="1056" extended-state="6" />
@@ -923,7 +920,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/look.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
+        <state relative-caret-position="1065">
           <caret line="71" column="42" selection-start-line="71" selection-start-column="42" selection-end-line="71" selection-end-column="42" />
           <folding />
         </state>
@@ -931,31 +928,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/index.pug">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
+        <state relative-caret-position="1395">
           <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
-          <caret line="142" column="68" selection-start-line="141" selection-start-column="3" selection-end-line="142" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/news.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="208" column="77" selection-start-line="208" selection-start-column="77" selection-end-line="208" selection-end-column="77" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/news.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
+        <state relative-caret-position="1245">
           <caret line="83" column="122" selection-start-line="83" selection-start-column="122" selection-end-line="83" selection-end-column="122" />
           <folding />
         </state>
@@ -963,7 +944,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/places.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
+        <state relative-caret-position="1005">
           <caret line="67" column="5" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
           <folding />
         </state>
@@ -973,6 +954,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
           <caret line="402" column="63" selection-start-line="402" selection-start-column="61" selection-end-line="402" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="55" selection-start-line="21" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/news.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
         </state>
       </provider>
