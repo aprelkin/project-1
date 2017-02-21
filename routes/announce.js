@@ -309,7 +309,7 @@ exports.save = function(req, res, next){
     
     // for save place
     req.body.state = "true";
-    req.body.radius = 10;
+    req.body.radius = 9;
     req.body.announceID = announcementID.toString();
 
     return next();

@@ -81,7 +81,7 @@ exports.index = function(req, res){
 
                     var title= 'Pencilbox | Locale Nachricht';
 
-                    res.render('news', { title: title, ancmts: announcements,lat:announce.lat, lng:announce.lng, username: username, userID: userID, announceID:announceID, about:about});
+                    res.render('news', { title: title, ancmts: announcements,lat:announce.lat, lng:announce.lng, radius: 9, username: username, userID: userID, announceID:announceID, about:about});
                 });
             });
         });

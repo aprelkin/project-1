@@ -18,6 +18,7 @@ head
 
         inpute(id="lat",type="hidden", value=lat)
         inpute(id="lng",type="hiden", value=lng)
+        inpute(id="radius",type="hiden", value=radius)
         inpute(id="announceID",type="hiden", value=announceID)
 
         .container
@@ -41,7 +42,7 @@ head
                     div#slider-range-min
                     input(type="text",id="amount", readonly, style="border:0; background-color: #eee; color:#3498DB;")
                     div.flat-right
-                        input(type="checkbox", checked, disabled="true", data-toggle="switch", data-on-color="info", data-off-color="primary", id="custom-switch-05")
+                        input(type="checkbox", data-toggle="switch", data-on-color="info", data-off-color="primary", id="custom-switch-05")
                         .flat-left Filter folgen
 
             .grid
@@ -125,6 +126,9 @@ head
 
         +modal(username.length,"deleteModal","Willst Du die Nachricht wirklich löschen?", "Nachricht löschen","btnDelete")
         +modal(username.length>0?0:1,"anmeldenModal","Du bist noch nicht angemeldet", "Anmelden","btnAnmelden")
+        +modal(1,"savePlaceModal","Do you want to follow this place?", "Yes","btnSave", "btnSaveCancel")
+        +modal(1,"deletePlaceModal","Do you want to unfollow this place?", "Yes","btnDelete","btnDeleteCancel")
+
 
         +footer("#Geoblogging")
 

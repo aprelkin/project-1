@@ -1,7 +1,10 @@
+$(document).ready(function() {
 
-$( "#slider-range-min" ).slider({
+    lct.radius = $("#radius").attr("value");
+
+    $( "#slider-range-min" ).slider({
     range: "min",
-    value: 1,
+    value: lct.radius,
     min: 0,
     max: 10,
     slide: function( event, ui ) {
@@ -25,7 +28,6 @@ $('input.tagsinput-typeahead').tagsinput('input').typeahead(null, {
             return process(data);
         });
     }
-
 });
 
 
@@ -122,7 +124,6 @@ $(".fav").click(function(event) {
                 span.removeClass("starred");
             }
         }
-
     });
 } )
 
@@ -143,6 +144,7 @@ $("#btnDelete").click(function(event){
         }, 1000);
     });
 })
+
 $("#btnAnmelden").click(function(event){
     location.href = '/login'
 })
@@ -175,6 +177,7 @@ function editTextArea()
     $("#message").text(text).focus();
     $("#editOver").hide();
 }
+
 function hideTextArea(announceID)
 {
     $("#editOver").show();
@@ -194,10 +197,66 @@ function updateText(announceID,text)
     });
 }
 
-$(document).ready(function() {
+    $("#btnSave").on('click',function(event){
+
+        var radius = $("#slider-range-min").slider("value");
+        var action = JSON.stringify($("#tagsinput").tagsinput('items'));
+        var address = $("#search").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/savePlace",
+            data: { state:true,lat: lct.lat, lng: lct.lng, radius : radius, action: action, address:address}
+        }).done(function( msg ) {
+            $("#savePlaceModal").modal("hide");
+        });
+    });
+
+    $("#deletePlaceModal #btnDelete").on('click',function(event){
+
+        var radius = $("#slider-range-min").slider("value");
+        var action = JSON.stringify($("#tagsinput").tagsinput('items'));
+
+        $.ajax({
+            type: "POST",
+            url: "/savePlace",
+            data: { state:false,lat: lct.lat, lng: lct.lng, radius : radius, action: action}
+        }).done(function( msg ) {
+            $("#deletePlaceModal").modal("hide");
+        });
+    });
+
+    $("#btnDeleteCancel").on('click',function(event){
+
+        $("#custom-switch-05").bootstrapSwitch('state', true, true);
+    });
+
+    $("#btnSaveCancel").on('click',function(event){
+
+        $("#custom-switch-05").bootstrapSwitch('state', false, true);
+    });
+
+
+    $("#custom-switch-05").on('switchChange.bootstrapSwitch',function(event, state){
+
+        if(state)
+        {
+            $("#savePlaceModal").modal("show");
+        }
+        else
+        {
+            $("#deletePlaceModal").modal("show");
+        }
+    });
 
     // get initial location from IP maxmind database
     lct.lat = $("#lat").attr("value");
     lct.lng = $("#lng").attr("value");
     announceID = $("#announceID").attr("value");
+
+
+    var radius = $("#slider-range-min").slider("value");
+    var action = JSON.stringify($("#tagsinput").tagsinput('items'));
+
+    isIamfollow(lct,radius,action);
 });
