@@ -160,7 +160,7 @@ exports.find = function(req, res){
 
     var announcements = new Array();
 
-    AnnounceModel.where('loc').within({ center: [ parseFloat(req.body.lat), parseFloat(req.body.lng)], radius: req.body.radius / 6371, unique: true, spherical: true }).find({ $and: actObj}).skip(parseInt(req.body.skip)).limit(10).exec(
+    AnnounceModel.where('loc').within({ center: [ parseFloat(req.body.lat), parseFloat(req.body.lng)], radius: req.body.radius / 6371, unique: true, spherical: true }).find({ $and: actObj}).skip(parseInt(req.body.skip)).limit(10).sort({timeStamp: 'desc'}).exec(
         function(err, result) {
         if( err || !result) console.log("Announcement not found");
 
@@ -400,7 +400,7 @@ function getAllAnnouncements(req, res)
 {
     var announcements = new Array();
 
-    AnnounceModel.find().skip(parseInt(req.body.skip)).limit(100).exec(
+    AnnounceModel.find().skip(parseInt(req.body.skip)).limit(100).sort({timeStamp:'desc'}).exec(
         function(err, result) {
             if( err || !result) console.log("Announcement not found");
 
