@@ -42,6 +42,12 @@ exports.save = function(req, res){
 
         action.splice(maxinputtaglength);
 
+        if(action.length == 0)
+        {
+            console.log("tags array is 0, do not save place")
+            return res.sendStatus(900);
+        }
+
         var lat = req.body.lat;
         var lng = req.body.lng;
         var address = req.body.address;

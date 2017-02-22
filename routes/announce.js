@@ -206,6 +206,12 @@ exports.save = function(req, res, next){
 
     action.splice(maxinputtaglength);
 
+    if(action.length == 0)
+    {
+        console.log("announce cen not be saved")
+        return res.sendStatus(900);
+    }
+
     var imgs = [];
     var imgLength = 0;
     if(typeof req.files !== "undefined" )
