@@ -44,6 +44,10 @@ head
                     div.flat-right
                         input(type="checkbox", data-toggle="switch", data-on-color="info", data-off-color="primary", id="custom-switch-05")
                         .flat-left Filter folgen
+            div(class="alert alert-success display-none", id="alert")
+                button(class="close fui-cross",data-dismiss="alert")
+                p Es wurde an deinem Ort keine Nachriche gefunden.
+                    a(href="/put?lat=" + lat + "&lng=" + lng,class="alert-link") Willst Du bei deinem Ort der Erste sein? Dann kannst Du eine neue Nachricht schreiben.
 
             .grid
                 .row

@@ -128,7 +128,7 @@ function createPinitems(announcements){
 
         $(div).appendTo(".grid .row");
     }
-
+    
     if(isAllannoucements)
     {
         $("#alert").removeClass("display-none");
