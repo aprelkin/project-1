@@ -196,6 +196,23 @@ exports.findByUserId = function(req, res)
     });
 }
 
+exports.findByAddress = function(req, res)
+{
+    console.log("get all messages from address");
+
+    var lat = req.body.lat;
+    var lng = req.body.lng;
+
+    var announcements = new Array();
+
+    AnnounceModel.find({lat: lat, lng: lng}, function(err, result){
+
+        if (err) console.log("announcements are not found"+ err);
+
+        getAnnouncements(0,req, res, result, announcements, false);
+    });
+}
+
 
 /**
  * Function save announcement

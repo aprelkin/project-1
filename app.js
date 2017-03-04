@@ -184,6 +184,8 @@ app.get('/news', news.index);
 
 app.post('/findByUserId', announce.findByUserId);
 
+app.post('/findByAddress', announce.findByAddress);
+
 // siteMap
 app.get('/sitemap.xml', siteMap.index);
 

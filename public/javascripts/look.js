@@ -72,6 +72,19 @@ function findByUserId(userId)
     });
 }
 
+function findByAddress(lat, lng)
+{
+    $.ajax({
+        type: "POST",
+        url: "/findByAddress",
+        data: { lat: lat, lng: lng}
+    }).done(function( msg ) {
+
+        $(".item").not(".display-none").remove();
+        createPinitems(msg);
+    });
+}
+
 
 function isIamfollow(lct,radius,action)
 {

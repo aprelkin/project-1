@@ -32,8 +32,6 @@ function createPinitems(announcements){
         
         //$(div).find(".well-top .a-top").attr("href","/news?id="+announceID);
 
-        $(div).find(".well-top .a-top").attr("href","/user?id="+announcements[i].rest.userID);
-
         $(div).find(".well-top .a-top").click({userID: announcements[i].rest.userID}, function(event){
 
             event.preventDefault();
@@ -43,6 +41,14 @@ function createPinitems(announcements){
 
         $(div).find(".imageWrapper").empty();
         $(div).find(".address").empty().append(address);
+
+        $(div).find(".address").click({lat: announcements[i].rest.lat, lng: announcements[i].rest.lng }, function(event){
+            
+            event.preventDefault();
+
+            findByAddress(event.data.lat, event.data.lng);
+        });
+
 
         $.each( announcements[i].rest.imgs, function( index, value ){
 
