@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c99ea3b1-d0a0-4ef1-abf3-98c1394bfeb1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/createPinitems.js" afterPath="$PROJECT_DIR$/public/javascripts/createPinitems.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/look.js" afterPath="$PROJECT_DIR$/public/javascripts/look.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/announce.js" afterPath="$PROJECT_DIR$/routes/announce.js" />
     </list>
     <ignored path="pb3.iws" />
@@ -30,8 +26,8 @@
       <file leaf-file-name="announce.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/announce.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="202" column="27" selection-start-line="202" selection-start-column="27" selection-end-line="202" selection-end-column="27" />
+            <state relative-caret-position="210">
+              <caret line="190" column="96" selection-start-line="190" selection-start-column="96" selection-end-line="190" selection-end-column="96" />
               <folding />
             </state>
           </provider>
@@ -641,12 +637,12 @@
       <workItem from="1488646193547" duration="394000" />
       <workItem from="1488654299794" duration="1797000" />
       <workItem from="1488656412347" duration="1801000" />
-      <workItem from="1488658351268" duration="929000" />
+      <workItem from="1488658351268" duration="1258000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="209062000" />
+    <option name="totallyTimeSpent" value="209391000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="81" y="24" width="1839" height="1056" extended-state="6" />
@@ -1043,8 +1039,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/announce.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="202" column="27" selection-start-line="202" selection-start-column="27" selection-end-line="202" selection-end-column="27" />
+        <state relative-caret-position="210">
+          <caret line="190" column="96" selection-start-line="190" selection-start-column="96" selection-end-line="190" selection-end-column="96" />
           <folding />
         </state>
       </provider>

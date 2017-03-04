@@ -188,7 +188,7 @@ exports.findByUserId = function(req, res)
     
     var announcements = new Array();
 
-    AnnounceModel.find({userID: mongoose.Types.ObjectId(userId)}, function(err, result){
+    AnnounceModel.find({userID: mongoose.Types.ObjectId(userId)}).sort({timeStamp:'desc'}).exec(function(err, result){
 
         if (err) console.log("announcements are not found"+ err);
         
@@ -205,7 +205,7 @@ exports.findByAddress = function(req, res)
 
     var announcements = new Array();
 
-    AnnounceModel.find({lat: lat, lng: lng}, function(err, result){
+    AnnounceModel.find({lat: lat, lng: lng}).sort({timeStamp:'desc'}).exec( function(err, result){
 
         if (err) console.log("announcements are not found"+ err);
 
