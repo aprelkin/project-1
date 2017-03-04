@@ -25,13 +25,22 @@ function createPinitems(announcements){
         isAllannoucements = announcements[i].isAllannouncements;
 
         $(div).attr('id',announceID);
-
-        //text = text.substring(0,Math.floor((Math.random() * text.length) + 1));
-
+        
         $(div).find(".well p").not(".well-top p").empty().append(text);
         $(div).find(".well-top .source").addClass(source);
         $(div).find(".well-top .a-top").empty().append(userName+" am "+time+" hat gepostet");
-        $(div).find(".well-top .a-top").attr("href","/news?id="+announceID);
+        
+        //$(div).find(".well-top .a-top").attr("href","/news?id="+announceID);
+
+        $(div).find(".well-top .a-top").attr("href","/user?id="+announcements[i].rest.userID);
+
+        $(div).find(".well-top .a-top").click({userID: announcements[i].rest.userID}, function(event){
+
+            event.preventDefault();
+            
+            findByUserId(event.data.userID);
+        });
+
         $(div).find(".imageWrapper").empty();
         $(div).find(".address").empty().append(address);
 

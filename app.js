@@ -182,6 +182,8 @@ app.post('/fav', fav.update);
 
 app.get('/news', news.index);
 
+app.post('/findByUserId', announce.findByUserId);
+
 // siteMap
 app.get('/sitemap.xml', siteMap.index);
 

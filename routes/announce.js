@@ -179,6 +179,24 @@ exports.find = function(req, res){
     });
 };
 
+
+exports.findByUserId = function(req, res)
+{
+    console.log("get all messages from user");
+
+    var userId = req.body.userId;
+    
+    var announcements = new Array();
+
+    AnnounceModel.find({userID: mongoose.Types.ObjectId(userId)}, function(err, result){
+
+        if (err) console.log("announcements are not found"+ err);
+        
+        getAnnouncements(0,req, res, result, announcements, false);
+    });
+}
+
+
 /**
  * Function save announcement
  * @param req

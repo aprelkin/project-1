@@ -59,6 +59,20 @@ function look(lct,radius,action)
     });
 }
 
+function findByUserId(userId)
+{
+    $.ajax({
+        type: "POST",
+        url: "/findByUserId",
+        data: { userId: userId}
+    }).done(function( msg ) {
+        
+        $(".item").not(".display-none").remove();
+        createPinitems(msg);
+    });
+}
+
+
 function isIamfollow(lct,radius,action)
 {
     $.ajax({
