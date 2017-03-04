@@ -12,6 +12,11 @@ exports.index = function(req, res, next){
     if (typeof req.user !== "undefined") {
 
         var userid = String(mongoose.Types.ObjectId(req.user._id));
+        
+        if(typeof req.query.id !== "undefined")
+        {
+            userid = req.query.id;
+        }
 
         var userIds = [];
         userIds.push(userid);

@@ -30,13 +30,13 @@ function createPinitems(announcements){
         $(div).find(".well-top .source").addClass(source);
         $(div).find(".well-top .a-top").empty().append(userName+" am "+time+" hat gepostet");
         
-        //$(div).find(".well-top .a-top").attr("href","/news?id="+announceID);
+        $(div).find(".well-top .a-top").attr("href","/places?id="+announcements[i].rest.userID);
 
         $(div).find(".well-top .a-top").click({userID: announcements[i].rest.userID}, function(event){
 
-            event.preventDefault();
+            //event.preventDefault();
             
-            findByUserId(event.data.userID);
+            //findByUserId(event.data.userID);
         });
 
         $(div).find(".imageWrapper").empty();
