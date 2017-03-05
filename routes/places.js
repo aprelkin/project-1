@@ -5,6 +5,7 @@
 
 var PlaceModel = require('../models/placeModel');
 var mongoose = require('mongoose');
+var UserModel = require('../models/userModel');
 
 
 exports.index = function(req, res, next){
@@ -21,10 +22,23 @@ exports.index = function(req, res, next){
         var userIds = [];
         userIds.push(userid);
 
-        PlaceModel.find({userIds:{"$in":userIds}}, function (err, places) {
+        var query = UserModel.findOne(mongoose.Types.ObjectId(req.user._id));
+
+        query.exec(function(err, userName) {
+            if (err) console.log("err!!!");
             
-            req.places = places;
-            return next();
+            var userName = (typeof userName.facebook.name!=="undefined"?userName.facebook.name:typeof userName.twitter.username !== "undefined"?userName.twitter.username:typeof userName.google.name !== "undefined"?userName.google.name:userName.local.username); // TODO Email
+
+            console.log("name : "+userName);
+
+            PlaceModel.find({userIds:{"$in":userIds}}, function (err, places) {
+
+                req.places = places;
+                req.userName = userName;
+                
+                return next();
+            });
+            
         });
     }
     else

@@ -143,7 +143,7 @@ function count(i, req, res)
             });
     }
     else {
-         res.render('places', { places:req.places });
+         res.render('places', { places:req.places, userName: req.userName });
     }
 }
 
