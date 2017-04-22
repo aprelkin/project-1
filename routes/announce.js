@@ -60,9 +60,11 @@ exports.init = function(req, res){
 
     var lat = parseFloat(cityObject['location'].latitude).toFixed(3);
     var lng = parseFloat(cityObject['location'].longitude).toFixed(3);
+
+    console.dir(req);
     
     var tags = ["Stichwörter"];
-    res.render('index', { title: 'Pencilbox', town: cityObject['city'].names['en'],  lat: lat, lng: lng, tags:tags, radius: 9, username:username });
+    res.render('index', { title: 'Pencilbox', town: cityObject['city'].names['en'],  lat: lat, lng: lng, tags:tags, radius: 9, username:username, userId:req.user._id });
 };
 
 exports.showMessages = function(req, res) {

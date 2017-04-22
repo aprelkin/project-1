@@ -27,7 +27,7 @@ mixin footer(label)
                            a(href='/es') Es
 
 // Navigation mixins
-mixin nav(about,username)
+mixin nav(about,username,userId)
       meta(charset='UTF-8')
       nav.navbar(role='navigation')
          // Brand and toggle get grouped for better mobile display
@@ -53,7 +53,7 @@ mixin nav(about,username)
                         li
                            a(href="/put?lat="+lat+"&lng="+lng) Nachricht schreiben
                         li
-                           a(href="/places") My places
+                           a(href="/places?id="+userId) My places
                         li
                            a(href='/logout') Abmelden
                else
