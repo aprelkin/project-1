@@ -12,24 +12,17 @@ exports.index = function(req, res, next){
 
     if (typeof req.user !== "undefined") {
 
-        var userid = String(mongoose.Types.ObjectId(req.user._id));
-        
-        if(typeof req.query.id !== "undefined")
-        {
-            userid = req.query.id;
-        }
+        var userid = req.query.id;
 
         var userIds = [];
         userIds.push(userid);
 
-        var query = UserModel.findOne(mongoose.Types.ObjectId(req.user._id));
+        var query = UserModel.findOne(mongoose.Types.ObjectId(userid));
 
         query.exec(function(err, userName) {
             if (err) console.log("err!!!");
             
             var userName = (typeof userName.facebook.name!=="undefined"?userName.facebook.name:typeof userName.twitter.username !== "undefined"?userName.twitter.username:typeof userName.google.name !== "undefined"?userName.google.name:userName.local.username); // TODO Email
-
-            console.log("name : "+userName);
 
             PlaceModel.find({userIds:{"$in":userIds}}, function (err, places) {
 
