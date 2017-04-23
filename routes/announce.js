@@ -19,6 +19,7 @@ var cityLookup = maxmind.openSync('public/geoip/GeoLite2-City.mmdb');
 exports.init = function(req, res){
 
     var username = "";
+    var userId = 0;
 
     if (typeof req.user !== "undefined") {
 
@@ -42,6 +43,8 @@ exports.init = function(req, res){
             console.log("google");
             username = req.user.google.name;
         }
+
+        userId = req.user._id;
     }
 
     // https://github.com/runk/node-maxmind  (curent 1.2.25)
@@ -64,7 +67,8 @@ exports.init = function(req, res){
     console.dir(req);
     
     var tags = ["Stichwörter"];
-    res.render('index', { title: 'Pencilbox', town: cityObject['city'].names['en'],  lat: lat, lng: lng, tags:tags, radius: 9, username:username, userId:req.user._id });
+
+    res.render('index', { title: 'Pencilbox', town: cityObject['city'].names['en'],  lat: lat, lng: lng, tags:tags, radius: 9, username:username, userId:userId });
 };
 
 exports.showMessages = function(req, res) {
