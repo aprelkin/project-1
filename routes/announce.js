@@ -149,7 +149,7 @@ function count(i, req, res)
             });
     }
     else {
-         res.render('places', { places:req.places, userName: req.userName });
+         res.render('places', { places:req.places, userName: req.userName, checked:req.checked });
     }
 }
 

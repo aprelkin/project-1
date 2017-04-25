@@ -28,6 +28,7 @@ exports.index = function(req, res, next){
 
                 req.places = places;
                 req.userName = userName;
+                req.checked = userid == req.user.id;
                 
                 return next();
             });

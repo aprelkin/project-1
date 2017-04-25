@@ -12,9 +12,7 @@ exports.index = function(req, res){
     var username = req.flash('username');
     var email = req.flash('email');
     var message = "";
-
-    console.dir(req.user);
-
+    
 
     if (typeof req.params.userid !== "undefined") {
 
