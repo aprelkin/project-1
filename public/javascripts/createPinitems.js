@@ -147,7 +147,6 @@ function createPinitems(announcements){
     if(isAllannoucements)
     {
         $("#alert").removeClass("display-none");
-        $("#alert").find("p").empty().html("Es wurden an deinem Ort keine Nachrichten gefunden. Willst Du an deinem Ort der Erste sein? Dann kannst Du eine neue Nachricht <a href='/put?lat="+lct.lat +"&lng="+lct.lng+"' class='aler-link'>schreiben</a>.")
     }
     else
     {

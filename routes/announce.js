@@ -67,8 +67,8 @@ exports.init = function(req, res){
     console.dir(req);
     
     var tags = ["Stichwörter"];
-
-    res.render('index', { title: 'Pencilbox', town: cityObject['city'].names['en'],  lat: lat, lng: lng, tags:tags, radius: 9, username:username, userId:userId });
+    res.setLocale(req.cookies.i18n);
+    res.render('index', { title: 'Pencilbox', town: cityObject['city'].names['en'],  lat: lat, lng: lng, tags:tags, radius: 9, username:username, userId:userId ,  i18n: res});
 };
 
 exports.showMessages = function(req, res) {

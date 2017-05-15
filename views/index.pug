@@ -52,8 +52,8 @@ head
 
             div(class="alert alert-success display-none", id="alert")
                 button(class="close fui-cross",data-dismiss="alert")
-                p Es wurde an deinem Ort keine Nachriche gefunden.
-                    a(href="/put?lat="+lat + "&lng="+lng,class="alert-link") Willst Du bei deinem Ort der Erste sein? Dann kannst Du eine neue Nachricht schreiben.
+                p #{i18n.__("no messages yet")}
+                    a(href="/put?lat="+lat + "&lng="+lng,class="alert-link") #{i18n.__("be first")}
             .grid
                 .row
                     .item.display-none

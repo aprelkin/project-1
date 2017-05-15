@@ -23,7 +23,7 @@ var express = require('express')
     , googleAccept = require('./routes/googleAccept')
     , cookieParser = require('cookie-parser')
     , bodyParser = require('body-parser')
-    , cookieSession = require('cookie-session')
+    , session= require('express-session')
     , logger = require('morgan')
     , methodOverride = require('method-override')
     , favicon = require('serve-favicon')
@@ -35,9 +35,6 @@ var express = require('express')
 app.set('views',path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-//app.use(express.cookieParser('keyboard cat'));
-app.use(cookieParser()); // read cookies (needed for auth)
-app.use(cookieSession({ name: 'session',keys: ['key1', 'key2'], maxAge: 365 * 24 * 60 * 60 * 1000 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash()); // use connect-flash for flash messages stored in session
@@ -53,6 +50,35 @@ app.use(favicon(__dirname+'/public/stylesheets/favicon/favicon.ico'));
 
 app.enable('strict routing');
 require('./config/passport')(passport); // pass passport for configuration
+
+// localization
+var i18n = require('i18n');
+i18n.configure({
+
+    //define how many languages we would support in our application
+    locales:['en', 'de', 'ru', 'es' ],
+
+    //define the path to language json files, default is /locales
+    directory: __dirname + '/locales',
+
+    //define the default language
+    defaultLocale: 'en',
+
+    // define a custom cookie name to parse locale settings from
+    cookie: 'i18n'
+});
+
+app.use(cookieParser("i18n_demo")); // read cookies (needed for auth)
+
+app.use(session({
+    secret: "i18n_demo", // must have the same secret as cookieParser (above)
+    resave: true,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 }
+}));
+
+//init i18n (must be after cookie-parser)
+app.use(i18n.init);
 
 mongoose.connect(database.url); // connect to our database
 
@@ -101,6 +127,27 @@ app.post('/signup',
       failureFlash: true })
 );
 
+// i18n: put locale id into the cookie and redirect
+app.get('/ru', function (req, res) {
+    res.cookie('i18n', 'ru');
+    res.redirect('/')
+});
+
+app.get('/en', function (req, res) {
+    res.cookie('i18n', 'en');
+    res.redirect('/')
+});
+
+app.get('/de', function (req, res) {
+    res.cookie('i18n', 'de');
+    res.redirect('/')
+});
+
+app.get('/es', function (req, res) {
+    res.cookie('i18n', 'es');
+    res.redirect('/')
+});
+
 // =====================================
 // TWITTER ROUTES ======================
 // =====================================
@@ -143,7 +190,7 @@ app.get('/auth/google/callback',
     }));
 
 
-app.get('/', announce.init);
+app.get('/',  announce.init);
 
 app.post('/look',announce.find);
 
